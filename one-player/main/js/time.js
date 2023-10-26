@@ -3,8 +3,7 @@ let timeid;
 
 var P_name = document.getElementById("Pname");
 
-
-function retangularcollision({rectangle1, rectangle2}) {
+function retangularcollision({ rectangle1, rectangle2 }) {
   return (
     rectangle1.attackbox.position.x + rectangle1.attackbox.width >=
       rectangle2.position.x &&

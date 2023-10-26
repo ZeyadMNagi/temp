@@ -19,7 +19,7 @@ var isAR = localStorage.getItem("arabic");
 P_name.innerHTML = PlayerName;
 E_name.innerHTML = EnemyName;
 
-function retangularcollision({rectangle1, rectangle2}) {
+function retangularcollision({ rectangle1, rectangle2 }) {
   return (
     rectangle1.attackbox.position.x + rectangle1.attackbox.width >=
       rectangle2.position.x &&
@@ -31,8 +31,7 @@ function retangularcollision({rectangle1, rectangle2}) {
   );
 }
 
-
-function determineWinner({player, enemy, timeid}) {
+function determineWinner({ player, enemy, timeid }) {
   clearTimeout(timeid);
   setTimeout(() => {
     pop.style.display = "flex";
@@ -76,7 +75,7 @@ function decrease() {
     document.querySelector("#timer").innerHTML = time;
   }
   if (time === 0) {
-    determineWinner({player, enemy, timeid});
+    determineWinner({ player, enemy, timeid });
     canPress = false;
   }
 }

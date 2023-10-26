@@ -19,8 +19,6 @@ var enemyJump = true;
 var player_onGround = true;
 var enemy_onGround = true;
 
-
-
 canvas.width = 1024;
 canvas.height = 576;
 C.fillRect(0, 0, canvas.width, canvas.height);
@@ -39,36 +37,35 @@ const evil = [evil_1, evil_2];
 const knight = [knight_1, knight_2];
 const goblin = [goblin_1, goblin_2];
 const skeleton = [skeleton_1, skeleton_2];
-const hunter = [hunter_1, hunter_2 ];
+const hunter = [hunter_1, hunter_2];
 const el_crystal = [el_crystal_1, el_crystal_2];
 const el_wind = [el_wind_1, el_wind_2];
 
-
-function face_P(i){
-  if(opp_1.name === "wizard"){
+function face_P(i) {
+  if (opp_1.name === "wizard") {
     player_use = wizard[i];
-  }else if(opp_1.name === "warrior"){
+  } else if (opp_1.name === "warrior") {
     player_use = warrior[i];
-  }else if(opp_1.name === "samurai"){
-    player_use = samurai[i]
-  }else if(opp_1.name === "king"){
-    player_use = king[i]
-  }else if(opp_1.name === "Evil wizard"){
-    player_use = evil[i]
-  }else if(opp_1.name === "Knight"){
-    player_use = knight[i]
-  }else if(opp_1.name === "fire wizard"){
-    player_use = fire[i]
-  }else if(opp_1.name === "goblin"){
-    player_use = goblin[i]
-  }else if(opp_1.name === "skeleton"){
-    player_use = skeleton[i]
-  }else if(opp_1.name === "idk"){
-    player_use = hunter[i]
-  }else if(opp_1.name === "wind"){
-    player_use = el_wind[i]
-  }else if(opp_1.name === "crystal"){
-    player_use = el_crystal[i]
+  } else if (opp_1.name === "samurai") {
+    player_use = samurai[i];
+  } else if (opp_1.name === "king") {
+    player_use = king[i];
+  } else if (opp_1.name === "Evil wizard") {
+    player_use = evil[i];
+  } else if (opp_1.name === "Knight") {
+    player_use = knight[i];
+  } else if (opp_1.name === "fire wizard") {
+    player_use = fire[i];
+  } else if (opp_1.name === "goblin") {
+    player_use = goblin[i];
+  } else if (opp_1.name === "skeleton") {
+    player_use = skeleton[i];
+  } else if (opp_1.name === "idk") {
+    player_use = hunter[i];
+  } else if (opp_1.name === "wind") {
+    player_use = el_wind[i];
+  } else if (opp_1.name === "crystal") {
+    player_use = el_crystal[i];
   }
 
   player.sprites.idle.image.src = player_use.sprites.idle.imgSrc;
@@ -82,32 +79,31 @@ function face_P(i){
   player.attackbox.offset.x = player_use.attackbox.offset.x;
 }
 
-
-function face_E(i){
-  if(opp_2.name === "wizard"){
+function face_E(i) {
+  if (opp_2.name === "wizard") {
     enemy_use = wizard[i];
-  }else if(opp_2.name === "warrior"){
+  } else if (opp_2.name === "warrior") {
     enemy_use = warrior[i];
-  }else if(opp_2.name === "samurai"){
-    enemy_use = samurai[i]
-  }else if(opp_2.name === "king"){
-    enemy_use = king[i]
-  }else if(opp_2.name === "Evil wizard"){
-    enemy_use = evil[i]
-  }else if(opp_2.name === "Knight"){
-    enemy_use = knight[i]
-  }else if(opp_2.name === "fire wizard"){
-    enemy_use = fire[i]
-  }else if(opp_2.name === "goblin"){
-    enemy_use = goblin[i]
-  }else if(opp_2.name === "skeleton"){
-    enemy_use = skeleton[i]
-  }else if(opp_2.name === "idk"){
-    enemy_use = hunter[i]
-  }else if(opp_2.name === "wind"){
-    player_use = el_wind[i]
-  }else if(opp_2.name === "crystal"){
-    player_use = el_crystal[i]
+  } else if (opp_2.name === "samurai") {
+    enemy_use = samurai[i];
+  } else if (opp_2.name === "king") {
+    enemy_use = king[i];
+  } else if (opp_2.name === "Evil wizard") {
+    enemy_use = evil[i];
+  } else if (opp_2.name === "Knight") {
+    enemy_use = knight[i];
+  } else if (opp_2.name === "fire wizard") {
+    enemy_use = fire[i];
+  } else if (opp_2.name === "goblin") {
+    enemy_use = goblin[i];
+  } else if (opp_2.name === "skeleton") {
+    enemy_use = skeleton[i];
+  } else if (opp_2.name === "idk") {
+    enemy_use = hunter[i];
+  } else if (opp_2.name === "wind") {
+    player_use = el_wind[i];
+  } else if (opp_2.name === "crystal") {
+    player_use = el_crystal[i];
   }
 
   enemy.sprites.idle.image.src = enemy_use.sprites.idle.imgSrc;
@@ -120,8 +116,6 @@ function face_E(i){
   enemy.sprites.takehit.image.src = enemy_use.sprites.hit.imgSrc;
   enemy.attackbox.offset.x = enemy_use.attackbox.offset.x;
 }
-
-
 
 const background = new sprite({
   position: {
@@ -181,9 +175,9 @@ const player = new Fighter({
     x: player_use.offset.x,
     y: player_use.offset.y,
   },
-  health:300,
-  no:300,
-  damage:4,
+  health: 300,
+  no: 300,
+  damage: 4,
   sprites: {
     idle: {
       imageSrc: player_use.sprites.idle.imgSrc,
@@ -249,9 +243,9 @@ const enemy = new Fighter({
     x: enemy_use.offset.x,
     y: enemy_use.offset.y,
   },
-  health:300,
-  no:300,
-  damage:4,
+  health: 300,
+  no: 300,
+  damage: 4,
   sprites: {
     idle: {
       imageSrc: enemy_use.sprites.idle.imgSrc,
@@ -322,7 +316,6 @@ const keys = {
 };
 
 let lastkey;
-
 
 decrease();
 
@@ -485,7 +478,7 @@ function animate() {
     player.isattacking = false;
 
     gsap.to("#en-heal", {
-      width: ( 100 * enemy.health) / enemy.no  + "%",
+      width: (100 * enemy.health) / enemy.no + "%",
     });
   }
 
@@ -507,7 +500,7 @@ function animate() {
     enemy.isattacking = false;
 
     gsap.to("#ol-heal", {
-      width: ( 100 * player.health) / player.no  + "%",
+      width: (100 * player.health) / player.no + "%",
     });
   }
 
@@ -518,7 +511,7 @@ function animate() {
 
   //end game
   if (enemy.health <= 0 || player.health <= 0) {
-    determineWinner({player, enemy, timeid});
+    determineWinner({ player, enemy, timeid });
     canPress = false;
   }
   if (player.health <= 0) {

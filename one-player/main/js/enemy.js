@@ -32,11 +32,11 @@ if (difficulty === "dN") {
 
 function spawnEnemies() {
   setInterval(() => {
-    if(!player.dead ) {    
-      if (time >0) {
+    if (!player.dead) {
+      if (time > 0) {
         let i = Math.floor(Math.random() * 8);
         let x = Math.random() * (1000 - -800) + -800;
-    
+
         enemies.push(
           new Fighter({
             position: {

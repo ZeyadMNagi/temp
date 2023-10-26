@@ -112,7 +112,6 @@ function refresh() {
       y: 220,
     },
   });
-
 }
 function animate() {
   window.requestAnimationFrame(animate);
