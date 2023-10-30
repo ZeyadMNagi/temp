@@ -262,7 +262,20 @@ var choose3 = (element) => {
     localStorage.setItem("background", JSON.stringify(background_3));
     background_use = background_3;
     background_use.need.imgSrc = "../img/img/background/Backgroundf.jpeg";
+  } else if (background_id === "img4") {
+    localStorage.setItem("background", JSON.stringify(background_6));
+    background_use = background_6;
+    background_use.need.imgSrc = "../img/img/background/lap.png";
+  }else if (background_id === "img5") {
+    localStorage.setItem("background", JSON.stringify(background_5));
+    background_use = background_5;
+    background_use.need.imgSrc = "../img/img/background/Image.png";
+  }else if (background_id === "img6") {
+    localStorage.setItem("background", JSON.stringify(background_4));
+    background_use = background_4;
+    background_use.need.imgSrc = "../img/img/background/bulkhead.png";
   }
+
 
   console.log(element.src);
 };

@@ -1569,21 +1569,22 @@ const el_wind_2 = new Character({
   },
 });
 
-const background_3 = new Background({
-  name: "forest",
+const background_1 = new Background({
+  name: "roof",
   position: {
     x: 0,
     y: 0,
   },
   need: {
-    imgSrc: "../../img/img/background/Backgroundf.jpeg",
-    imgPre: "../img/img/background/Backgroundf.jpeg",
+    imgSrc: "../../img/img/background/background.jpg",
+    imgPre: "../img/img/background/background.jpg",
     Shop: false,
     width: 1024,
     height: 576,
   },
   scale: 1.2,
 });
+
 const background_2 = new Background({
   name: "main",
   position: {
@@ -1599,18 +1600,67 @@ const background_2 = new Background({
   },
   scale: 1.2,
 });
-const background_1 = new Background({
-  name: "roof",
+
+const background_3 = new Background({
+  name: "forest",
   position: {
     x: 0,
     y: 0,
   },
   need: {
-    imgSrc: "../../img/img/background/background.jpg",
-    imgPre: "../img/img/background/background.jpg",
+    imgSrc: "../../img/img/background/Backgroundf.jpeg",
+    imgPre: "../img/img/background/Backgroundf.jpeg",
     Shop: false,
     width: 1024,
     height: 576,
   },
   scale: 1.2,
+});
+
+const background_4 = new Background({
+  name: "bulkhead",
+  position: {
+    x: 0,
+    y: 0,
+  },
+  need: {
+    imgSrc: "../../img/img/background/bulkhead.png",
+    imgPre: "../img/img/background/bulkhead.png",
+    Shop: false,
+    width: 1024,
+    height: 672,
+  },
+  scale: 1.2,
+});
+
+const background_5 = new Background({
+  name: "scary",
+  position: {
+    x: 0,
+    y: 0,
+  },
+  need: {
+    imgSrc: "../../img/img/background/Image.png",
+    imgPre: "../img/img/background/Image.png",
+    Shop: false,
+    width: 1024,
+    height: 598,
+  },
+  scale:  1,
+});
+
+const background_6 = new Background({
+  name: "lap",
+  position: {
+    x: 0,
+    y: 0,
+  },
+  need: {
+    imgSrc: "../../img/img/background/lab.png",
+    imgPre: "../img/img/background/lab.png",
+    Shop: false,
+    width: 1024,
+    height: 596,
+  },
+  scale: 1,
 });
