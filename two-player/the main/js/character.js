@@ -1582,7 +1582,7 @@ const background_1 = new Background({
     width: 1024,
     height: 576,
   },
-  scale: 1.2,
+  scale: 1,
 });
 
 const background_2 = new Background({
@@ -1598,7 +1598,7 @@ const background_2 = new Background({
     width: 1024,
     height: 576,
   },
-  scale: 1.2,
+  scale: 1,
 });
 
 const background_3 = new Background({
@@ -1614,7 +1614,7 @@ const background_3 = new Background({
     width: 1024,
     height: 576,
   },
-  scale: 1.2,
+  scale: 1,
 });
 
 const background_4 = new Background({

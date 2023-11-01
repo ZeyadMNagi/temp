@@ -44,7 +44,51 @@ body {
   align-items: center;
   justify-content: center;
 }
+td,
+tr {
+  padding: 10px;
+}
 
+.table {
+  align-items: center;
+  justify-content: center;
+  /* display: flex; */
+  padding: auto;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.images img:hover,
+td img:hover {
+  border: 2px solid #fff;
+  border-radius: 5px;
+}
+
+td {
+  text-align: center;
+  border-right: 5px solid black;
+}
+
+td:last-child {
+  border-right: none;
+}
+
+td img {
+  width: 90px;
+  height: 90px;
+  display: inline-block;
+  margin: 5px;
+  /* margin: 0 auto; */
+  transform: scale(1.2);
+}
 label {
   text-align: center;
 }

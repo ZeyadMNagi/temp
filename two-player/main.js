@@ -194,6 +194,8 @@ function choose1(element) {
     localStorage.setItem("player1", JSON.stringify(goblin_1));
   } else if (playerid === "p19") {
     localStorage.setItem("player1", JSON.stringify(skeleton_1));
+  } else if (playerid === "p21") {
+    localStorage.setItem("player1", JSON.stringify(hunter_1));
   } else if (playerid === "p25") {
     localStorage.setItem("player1", JSON.stringify(el_crystal_1));
   } else if (playerid === "p27") {
@@ -231,6 +233,8 @@ function choose2(element) {
     localStorage.setItem("player2", JSON.stringify(goblin_2));
   } else if (enemyid === "p20") {
     localStorage.setItem("player2", JSON.stringify(skeleton_2));
+  } else if (enemyid === "p22") {
+    localStorage.setItem("player2", JSON.stringify(hunter_2));
   } else if (enemyid === "p26") {
     localStorage.setItem("player2", JSON.stringify(el_crystal_2));
   } else if (enemyid === "p28") {
@@ -266,16 +270,15 @@ var choose3 = (element) => {
     localStorage.setItem("background", JSON.stringify(background_6));
     background_use = background_6;
     background_use.need.imgSrc = "../img/img/background/lap.png";
-  }else if (background_id === "img5") {
+  } else if (background_id === "img5") {
     localStorage.setItem("background", JSON.stringify(background_5));
     background_use = background_5;
     background_use.need.imgSrc = "../img/img/background/Image.png";
-  }else if (background_id === "img6") {
+  } else if (background_id === "img6") {
     localStorage.setItem("background", JSON.stringify(background_4));
     background_use = background_4;
     background_use.need.imgSrc = "../img/img/background/bulkhead.png";
   }
-
 
   console.log(element.src);
 };
