@@ -1108,7 +1108,7 @@ const hunter_1 = new Character({
   },
   offset: {
     x: 200,
-    y: 150,
+    y: 140,
   },
   sprites: {
     preview: {
@@ -1630,7 +1630,7 @@ const background_4 = new Background({
     width: 1024,
     height: 672,
   },
-  scale: 1.2,
+  scale: 1,
 });
 
 const background_5 = new Background({
