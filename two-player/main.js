@@ -96,7 +96,7 @@ function refresh() {
     scale: opp_1.scale,
     offset: {
       x: opp_1.offset.x,
-      y: 220,
+      y: opp_1.offset.y,
     },
   });
   enemy_pre = new Fighter({
@@ -108,8 +108,8 @@ function refresh() {
     framemax: opp_2.sprites.idle.framemax,
     scale: opp_2.scale,
     offset: {
-      x: 400,
-      y: 220,
+      x: opp_2.offset.x,
+      y: opp_2.offset.y,
     },
   });
 }
@@ -203,8 +203,6 @@ function choose1(element) {
   }
   object_1 = localStorage.getItem("player1");
   opp_1 = JSON.parse(object_1);
-  object_2 = localStorage.getItem("player2");
-  opp_2 = JSON.parse(object_2);
 }
 
 function choose2(element) {
@@ -240,8 +238,6 @@ function choose2(element) {
   } else if (enemyid === "p28") {
     localStorage.setItem("player2", JSON.stringify(el_wind_2));
   }
-  object_1 = localStorage.getItem("player1");
-  opp_1 = JSON.parse(object_1);
   object_2 = localStorage.getItem("player2");
   opp_2 = JSON.parse(object_2);
 }
@@ -281,6 +277,7 @@ var choose3 = (element) => {
   }
 
   console.log(element.src);
+  background.image.src = element.src
 };
 
 btn.addEventListener("click", () => {

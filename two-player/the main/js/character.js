@@ -26,6 +26,7 @@ class Character {
     }
   }
 }
+
 class Background {
   constructor({ position, scale = 1, width, height, need, name }) {
     this.name = name;
@@ -454,6 +455,7 @@ const king_1 = new Character({
     height: 50,
   },
 });
+
 const king_2 = new Character({
   name: "king",
   scale: 3,
@@ -807,6 +809,7 @@ const fire_wizard_2 = new Character({
     height: 50,
   },
 });
+
 const fire_wizard_1 = new Character({
   name: "fire wizard",
   scale: 3,
@@ -865,6 +868,7 @@ const fire_wizard_1 = new Character({
     height: 50,
   },
 });
+
 const goblin_1 = new Character({
   name: "goblin",
   scale: 3,
@@ -923,6 +927,7 @@ const goblin_1 = new Character({
     height: 50,
   },
 });
+
 const goblin_2 = new Character({
   name: "goblin",
   scale: 3,
@@ -981,6 +986,7 @@ const goblin_2 = new Character({
     height: 50,
   },
 });
+
 const skeleton_1 = new Character({
   name: "skeleton",
   scale: 3,
@@ -1039,6 +1045,7 @@ const skeleton_1 = new Character({
     height: 50,
   },
 });
+
 const skeleton_2 = new Character({
   name: "skeleton",
   scale: 3,
@@ -1156,6 +1163,7 @@ const hunter_1 = new Character({
     height: 50,
   },
 });
+
 const hunter_2 = new Character({
   name: "idk",
   scale: 3,
