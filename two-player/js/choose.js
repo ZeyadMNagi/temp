@@ -87,26 +87,32 @@ var choose3 = (element) => {
     localStorage.setItem("background", JSON.stringify(background_1));
     background_use = background_1;
     background_use.need.imgSrc = "../img/img/background/background.jpg";
-  } else if (background_id === "img2") {
+    background.scale = background_1.need.pre_scale;
+} else if (background_id === "img2") {
     localStorage.setItem("background", JSON.stringify(background_2));
     background_use = background_2;
+    background.scale = background_2.need.pre_scale;
     background_use.need.imgSrc = "../img/img/background/background.png";
   } else if (background_id === "img3") {
     localStorage.setItem("background", JSON.stringify(background_3));
     background_use = background_3;
     background_use.need.imgSrc = "../img/img/background/Backgroundf.jpeg";
+    background.scale = background_3.need.pre_scale;
   } else if (background_id === "img4") {
     localStorage.setItem("background", JSON.stringify(background_6));
     background_use = background_6;
     background_use.need.imgSrc = "../img/img/background/lap.png";
+    background.scale = background_6.need.pre_scale;
   } else if (background_id === "img5") {
     localStorage.setItem("background", JSON.stringify(background_5));
     background_use = background_5;
     background_use.need.imgSrc = "../img/img/background/Image.png";
+    background.scale = background_5.need.pre_scale;
   } else if (background_id === "img6") {
     localStorage.setItem("background", JSON.stringify(background_4));
     background_use = background_4;
     background_use.need.imgSrc = "../img/img/background/bulkhead.png";
+    background.scale = background_4.need.pre_scale;
   }
 
   background.image.src = element.src;

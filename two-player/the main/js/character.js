@@ -1589,7 +1589,7 @@ const background_1 = new Background({
     Shop: false,
     width: 1024,
     height: 576,
-    pre_scale: 0.9,
+    pre_scale: 0.72,
   },
   scale: 1,
 });
@@ -1623,7 +1623,7 @@ const background_3 = new Background({
     Shop: false,
     width: 1024,
     height: 576,
-    pre_scale: 0.9,
+    pre_scale: 0.87,
   },
   scale: 1,
 });
@@ -1640,7 +1640,7 @@ const background_4 = new Background({
     Shop: false,
     width: 1024,
     height: 672,
-    pre_scale: 0.9,
+    pre_scale: 0.76,
   },
   scale: 1,
 });
@@ -1657,7 +1657,7 @@ const background_5 = new Background({
     Shop: false,
     width: 1024,
     height: 598,
-    pre_scale: 0.9,
+    pre_scale: 0.85,
   },
   scale: 1,
 });
@@ -1674,7 +1674,7 @@ const background_6 = new Background({
     Shop: false,
     width: 1024,
     height: 596,
-    pre_scale: 0.9,
+    pre_scale: 0.85,
   },
   scale: 1,
 });
