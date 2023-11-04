@@ -178,19 +178,26 @@
 
           document.getElementById("loading").style.display = "block";
           me.disabled = true;
+
+          
         }
       }
 
-      socket.on("s",(e)=>{
+      socket.on("s", (e) => {
         let allPlayersArray = e.allPlayers;
         console.log(allPlayersArray);
         let oppName;
         let value;
 
-        const found = allPlayersArray.find(obj=>obj.p1.p1name == `${name}` || obj.p2.p2name == `${name}`)
-        found.p1.p1name == `${name}` ? oppName=found.p2.p2name : oppName=found.p1.p1name 
-        found.p1.p1name == `${name}` ? value=found.p2.char : value=found.p1.char 
-
+        const found = allPlayersArray.find(
+          (obj) => obj.p1.p1name == `${name}` || obj.p2.p2name == `${name}`
+        );
+        found.p1.p1name == `${name}`
+          ? (oppName = found.p2.p2name)
+          : (oppName = found.p1.p1name);
+        found.p1.p1name == `${name}`
+          ? (value = found.p2.char)
+          : (value = found.p1.char);
       });
     </script>
   </body>

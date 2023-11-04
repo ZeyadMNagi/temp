@@ -4,11 +4,11 @@ const app = express();
 const path = require("path");
 const http = require("http");
 const { Server } = require("socket.io");
-const { Socket } = require("dgram");
 
 const server = http.createServer(app);
 
 const io = new Server(server);
+app.use(express.static(path.resolve("client")));
 
 let arr = [];
 let playerArr = [];
@@ -35,13 +35,13 @@ io.on("connection", (socket) => {
         arr.splice(0,2);
 
         io.emit("s",{ allPlayers:playerArr})
-        console.log(allPlayers)
+
       }
 
     }
   });
 });
 
-app.use(express.static("client"));
-
-app.listen(3000);
+server.listen(3000,()=>{
+    console.log("server started")
+});
