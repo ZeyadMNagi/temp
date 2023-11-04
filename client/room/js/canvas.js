@@ -190,6 +190,28 @@ function start() {
   animate();
 }
 
+const keys = {
+  a: {
+    pressed: false,
+  },
+  d: {
+    pressed: false,
+  },
+  w: {
+    pressed: false,
+  },
+  ArrowRight: {
+    pressed: false,
+  },
+  ArrowLeft: {
+    pressed: false,
+  },
+  ArrowUp: {
+    pressed: false,
+  },
+};
+
+let lastkey;
 function animate() {
   window.requestAnimationFrame(animate);
   C.fillStyle = "black";
@@ -207,4 +229,37 @@ function animate() {
 
   p1.velocity.x = 0;
   p2.velocity.x = 0;
+
+  if (keys.a.pressed && p1.lastkey === "a" && p1.position.x > 40) {
+    p1.velocity.x = -5;
+    p1.switchsprite("run");
+  } else if (keys.d.pressed && p1.lastkey === "d" && p1.position.x < 900) {
+    p1.velocity.x = 5;
+    p1.switchsprite("run");
+  } else if (
+    (keys.d.pressed && p1.lastkey === "d") ||
+    (keys.a.pressed && p1.lastkey === "a")
+  ) {
+    p1.switchsprite("run");
+    if (keys.d.pressed && background1.position.x >= 0 && p2.position.x >= 50) {
+      if (shop_put) {
+        shop_put.position.x -= 5;
+      }
+      background.position.x -= 5;
+      background1.position.x -= 5;
+      background0.position.x -= 5;
+      p2.position.x -= 5;
+    }
+    if (keys.a.pressed && background0.position.x <= 0 && p2.position.x <= 900) {
+      if (shop_put) {
+        shop_put.position.x += 5;
+      }
+      background.position.x += 5;
+      background1.position.x += 5;
+      background0.position.x += 5;
+      p2.position.x += 5;
+    }
+  } else {
+    p1.switchsprite("idle");
+  }
 }
