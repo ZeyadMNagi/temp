@@ -54,7 +54,8 @@ function offset() {
   }
   if (enemy_use.name === "fire wizard" && background_use.name === "roof") {
     enemy_use.offset.y = 90;
-  }if (player_use.name === "idk" && background_use.name === "roof") {
+  }
+  if (player_use.name === "idk" && background_use.name === "roof") {
     player_use.offset.y = 70;
   }
   if (enemy_use.name === "idk" && background_use.name === "roof") {

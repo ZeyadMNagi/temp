@@ -88,7 +88,7 @@ var choose3 = (element) => {
     background_use = background_1;
     background_use.need.imgSrc = "../img/img/background/background.jpg";
     background.scale = background_1.need.pre_scale;
-} else if (background_id === "img2") {
+  } else if (background_id === "img2") {
     localStorage.setItem("background", JSON.stringify(background_2));
     background_use = background_2;
     background.scale = background_2.need.pre_scale;

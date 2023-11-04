@@ -205,9 +205,6 @@ const enemy = new Fighter({
   },
 });
 
-console.log(player);
-console.log(enemy);
-
 const keys = {
   a: {
     pressed: false,
