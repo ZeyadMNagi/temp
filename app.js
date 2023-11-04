@@ -32,16 +32,17 @@ io.on("connection", (socket) => {
         };
         playerArr.push(obj);
 
-        arr.splice(0,2);
+        arr.splice(0, 2);
 
-        io.emit("s",{ allPlayers:playerArr})
-
+        io.emit("s", { allPlayers: playerArr });
+        socket.on("weNeed", () => {
+          io.emit("Got", { allPlayers: playerArr });
+        });
       }
-
     }
   });
 });
 
-server.listen(3000,()=>{
-    console.log("server started")
+server.listen(3000, () => {
+  console.log("server started");
 });

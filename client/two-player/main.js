@@ -59,7 +59,7 @@ var background = new sprite({
   scale: background_use.need.pre_scale,
 });
 
-var player_pre = new Fighter({
+player_pre = new Fighter({
   position: {
     x: 20,
     y: 0,
@@ -72,7 +72,7 @@ var player_pre = new Fighter({
     y: opp_1.offset.y,
   },
 });
-var enemy_pre = new Fighter({
+enemy_pre = new Fighter({
   position: {
     x: 500,
     y: 0,
@@ -189,4 +189,3 @@ btn.addEventListener("click", () => {
     h.innerHTML = "⛔ Please Enter EVERY thing!!!";
   }
 });
-
