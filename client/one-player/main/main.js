@@ -116,10 +116,6 @@ const player = new Fighter({
     x: 0,
     y: 0,
   },
-  offset: {
-    x: 0,
-    y: 0,
-  },
   imageSrc: player_use.sprites.idle.imgSrc,
   framemax: player_use.sprites.idle.framemax,
   scale: player_use.scale,

@@ -2,13 +2,16 @@ const express = require("express");
 const app = express();
 
 const path = require("path");
-const http = require("http");
+// var http = require("http");
 const { Server } = require("socket.io");
+
+import http from 'node:http';
 
 const server = http.createServer(app);
 
 const io = new Server(server);
 app.use(express.static(path.resolve("client")));
+
 
 let arr = [];
 let playerArr = [];
@@ -37,10 +40,9 @@ io.on("connection", (socket) => {
         io.emit("s", { allPlayers: playerArr });
         socket.on("weNeed", () => {
           io.emit("Got", { allPlayers: playerArr });
-          
-          playerArr =[];
-        });
 
+          playerArr = [];
+        });
       }
     }
   });

@@ -17,8 +17,6 @@ var background_use = background_2;
 
 var playerid;
 var enemyid;
-var player_pre;
-var enemy_pre;
 
 var object_1;
 var opp_1;

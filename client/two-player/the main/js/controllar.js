@@ -32,38 +32,6 @@ window.addEventListener("keydown", (event) => {
         }
         break;
     }
-    switch (event.key) {
-      case "ي":
-        keys.d.pressed = true;
-        player.lastkey = "d";
-        canAttack_P = false;
-        face_P(0);
-        break;
-      case "ش":
-        keys.a.pressed = true;
-        player.lastkey = "a";
-        canAttack_P = false;
-        face_P(1);
-        break;
-      case "ص":
-        if (player_use.need.canJump) {
-          if (playerJump) {
-            keys.w.pressed = true;
-            player.velocity.y = -15;
-            playerJump = false;
-          }
-        }
-
-        break;
-      case "س":
-        if (canAttack_P) player.attack1();
-        break;
-      case "ث":
-        if (player_use.need.twoAttack) {
-          if (canAttack_P) player.attack2();
-        }
-        break;
-    }
 
     if (!enemy.dead && canPress === true) {
       switch (event.key) {
@@ -117,20 +85,6 @@ window.addEventListener("keyup", (event) => {
     case "w":
       keys.w.pressed = false;
       break;
-    case "ي":
-      keys.d.pressed = false;
-      canAttack_P = true;
-
-      break;
-    case "ش":
-      keys.a.pressed = false;
-      canAttack_P = true;
-
-      break;
-    case "ص":
-      keys.w.pressed = false;
-      break;
-
     case "ArrowUp":
       keys.ArrowUp.pressed = false;
       break;

@@ -3,21 +3,10 @@ var P_name = document.getElementById("Pname");
 
 var pop = document.querySelector("#endGame");
 
-var object_1 = localStorage.getItem("player1");
-var opp_1 = JSON.parse(object_1);
-var object_2 = localStorage.getItem("player2");
-var opp_2 = JSON.parse(object_2);
-
-var background_get = localStorage.getItem("background");
-var background_use = JSON.parse(background_get);
-
-var PlayerName = localStorage.getItem("p1_name").toUpperCase();
-var EnemyName = localStorage.getItem("p2_name").toUpperCase();
-
 var isAR = localStorage.getItem("arabic");
 
-P_name.innerHTML = PlayerName;
-E_name.innerHTML = EnemyName;
+P_name.innerHTML = name;
+E_name.innerHTML = oppName;
 
 function retangularcollision({ rectangle1, rectangle2 }) {
   return (

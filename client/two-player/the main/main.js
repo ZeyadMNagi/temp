@@ -144,10 +144,6 @@ const enemy = new Fighter({
     x: 0,
     y: 0,
   },
-  offset: {
-    x: -50,
-    y: 0,
-  },
   color: "blue",
   imageSrc: enemy_use.sprites.idle.imgSrc,
   framemax: enemy_use.sprites.idle.framemax,

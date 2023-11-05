@@ -11,13 +11,10 @@ var opp_2 = JSON.parse(object_2);
 var background_get = localStorage.getItem("background");
 var background_use = JSON.parse(background_get);
 
-var PlayerName = localStorage.getItem("p1_name").toUpperCase();
-var EnemyName = localStorage.getItem("p2_name").toUpperCase();
-
 var isAR = localStorage.getItem("arabic");
 
-P_name.innerHTML = PlayerName;
-E_name.innerHTML = EnemyName;
+P_name.innerText = localStorage.getItem("p1_name").toUpperCase();
+E_name.innerText = localStorage.getItem("p2_name").toUpperCase();
 
 function retangularcollision({ rectangle1, rectangle2 }) {
   return (

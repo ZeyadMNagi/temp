@@ -89,7 +89,7 @@ class Fighter extends sprite {
     this.velocity = velocity;
     this.width = 50;
     this.height = 150;
-    this.lastkey;
+    this.lastkey = "";
     this.attackbox = {
       position: {
         x: this.position.x,
@@ -100,13 +100,13 @@ class Fighter extends sprite {
       height: attackbox.height,
     };
     this.color = color;
-    this.isattacking;
+    this.isattacking = false;
     this.health = health;
     this.framecurrent = 0;
     this.framelapsed = 0;
     this.framehold = 5;
     this.sprites = sprites;
-    this.dead = this.dead;
+    this.dead = false;
     this.enemy = enemy;
     this.no = no;
     this.damage = damage;

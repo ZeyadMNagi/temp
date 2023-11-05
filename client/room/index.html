@@ -164,8 +164,15 @@
         </div>
       </div>
     </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
+      integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script defer src="../two-player/the main/js/character.js"></script>
     <script defer src="../two-player/the main/js/classes.js"></script>
+    <script defer src="js/fun.js"></script>
     <script defer src="js/faces.js"></script>
     <script defer src="js/controllar.js"></script>
     <script defer src="js/canvas.js"></script>
@@ -205,9 +212,10 @@
         }
       }
       const socket = io();
-      let name;
+      var name;
       var player;
       var enemy;
+      var oppName
       function find(element, me) {
         name = element.value;
         if (element.value == null || element.value == "") {
@@ -225,7 +233,6 @@
         document.querySelector("#game").style.display = "block";
         let allPlayersArray = e.allPlayers;
         console.log(allPlayersArray);
-        let oppName;
         const found = allPlayersArray.find(
           (obj) => obj.p1.p1name == `${name}` || obj.p2.p2name == `${name}`
         );

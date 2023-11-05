@@ -1,6 +1,15 @@
 const canvas = document.querySelector("canvas");
 const C = canvas.getContext("2d");
 
+var canPress = true;
+var canAttack_P = true;
+var canAttack_E = true;
+
+var playerJump = true;
+var enemyJump = true;
+var player_onGround = true;
+var enemy_onGround = true;
+
 canvas.width = 1024;
 canvas.height = 576;
 C.fillRect(0, 0, canvas.width, canvas.height);
@@ -125,10 +134,6 @@ function start() {
     },
     velocity: {
       x: 0,
-      y: 0,
-    },
-    offset: {
-      x: -50,
       y: 0,
     },
     color: "blue",
@@ -276,22 +281,51 @@ function animate() {
   // detect for collision & enemy gets hit
   if (
     retangularcollision({
-      rectangle1: player,
-      rectangle2: enemy,
+      rectangle1: p1,
+      rectangle2: p2,
     }) &&
-    player.isattacking &&
-    player.framecurrent === 3
+    p1.isattacking &&
+    p1.framecurrent === 3
   ) {
-    enemy.takehit();
-    player.isattacking = false;
+    p2.takehit();
+    p1.isattacking = false;
 
     gsap.to("#en-heal", {
-      width: (100 * enemy.health) / enemy.no + "%",
+      width: (100 * p2.health) / p2.no + "%",
     });
   }
 
   // if player misses
-  if (player.isattacking && player.framecurrent === 3) {
-    player.isattacking = false;
+  if (p1.isattacking && p1.framecurrent === 3) {
+    p1.isattacking = false;
+  }
+  //end game
+  if (p2.health <= 0 || p1.health <= 0) {
+    determineWinner({ p1, p2, timeid });
+    canPress = false;
+  }
+  if (p1.health <= 0) {
+    p1.switchsprite("death");
+  }
+  if (p2.health <= 0) {
+    p2.switchsprite("death");
+  }
+  // double jump
+  if (p1.position.y === 330) {
+    player_onGround = true;
+  }
+
+  if (!playerJump && p1.velocity.y == 0 && player_onGround) {
+    playerJump = true;
+    player_onGround = false;
+  }
+
+  if (p2.position.y === 330) {
+    enemy_onGround = true;
+  }
+
+  if (!enemyJump && p2.velocity.y == 0 && enemy_onGround) {
+    enemyJump = true;
+    enemy_onGround = false;
   }
 }
