@@ -31,30 +31,30 @@ function retangularcollision({ rectangle1, rectangle2 }) {
   );
 }
 
-function determineWinner({ player, enemy, timeid }) {
+function determineWinner({ p1, p2, timeid }) {
   clearTimeout(timeid);
   setTimeout(() => {
     pop.style.display = "flex";
   }, 1000);
   if (!isAR) {
-    if (player.health === enemy.health) {
+    if (p1.health === p2.health) {
       document.querySelector("#result").innerHTML = "TIE";
       document.querySelector("#result").style.display = "flex";
-    } else if (player.health > enemy.health) {
+    } else if (p1.health > p2.health) {
       document.querySelector("#result").innerHTML = PlayerName + " WIN";
       document.querySelector("#result").style.display = "flex";
-    } else if (player.health < enemy.health) {
+    } else if (p1.health < p2.health) {
       document.querySelector("#result").innerHTML = EnemyName + " WIN";
       document.querySelector("#result").style.display = "flex";
     }
   } else {
-    if (player.health === enemy.health) {
+    if (p1.health === p2.health) {
       document.querySelector("#result").innerHTML = "تعادل";
       document.querySelector("#result").style.display = "flex";
-    } else if (player.health > enemy.health) {
+    } else if (p1.health > p2.health) {
       document.querySelector("#result").innerHTML = PlayerName + " فاز";
       document.querySelector("#result").style.display = "flex";
-    } else if (player.health < enemy.health) {
+    } else if (p1.health < p2.health) {
       document.querySelector("#result").innerHTML = EnemyName + " فاز";
       document.querySelector("#result").style.display = "flex";
     }
@@ -75,7 +75,7 @@ function decrease() {
     document.querySelector("#timer").innerHTML = time;
   }
   if (time === 0) {
-    determineWinner({ player, enemy, timeid });
+    determineWinner({ p1, p2, timeid });
     canPress = false;
   }
 }

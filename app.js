@@ -37,6 +37,7 @@ io.on("connection", (socket) => {
         io.emit("s", { allPlayers: playerArr });
         socket.on("weNeed", () => {
           io.emit("Got", { allPlayers: playerArr });
+          
           playerArr =[];
         });
 

@@ -12,39 +12,39 @@ const el_crystal = [el_crystal_1, el_crystal_2];
 const el_wind = [el_wind_1, el_wind_2];
 
 function face_P(i) {
-  if (opp_1.name === "wizard") {
-    player_use = wizard[i];
-  } else if (opp_1.name === "warrior") {
-    player_use = warrior[i];
-  } else if (opp_1.name === "samurai") {
-    player_use = samurai[i];
-  } else if (opp_1.name === "king") {
-    player_use = king[i];
-  } else if (opp_1.name === "Evil wizard") {
-    player_use = evil[i];
-  } else if (opp_1.name === "Knight") {
-    player_use = knight[i];
-  } else if (opp_1.name === "fire wizard") {
-    player_use = fire[i];
-  } else if (opp_1.name === "goblin") {
-    player_use = goblin[i];
-  } else if (opp_1.name === "skeleton") {
-    player_use = skeleton[i];
-  } else if (opp_1.name === "idk") {
-    player_use = hunter[i];
-  } else if (opp_1.name === "wind") {
-    player_use = el_wind[i];
-  } else if (opp_1.name === "crystal") {
-    player_use = el_crystal[i];
+  if (player.name === "wizard") {
+    player = wizard[i];
+  } else if (player.name === "warrior") {
+    player = warrior[i];
+  } else if (player.name === "samurai") {
+    player = samurai[i];
+  } else if (player.name === "king") {
+    player = king[i];
+  } else if (player.name === "Evil wizard") {
+    player = evil[i];
+  } else if (player.name === "Knight") {
+    player = knight[i];
+  } else if (player.name === "fire wizard") {
+    player = fire[i];
+  } else if (player.name === "goblin") {
+    player = goblin[i];
+  } else if (player.name === "skeleton") {
+    player = skeleton[i];
+  } else if (player.name === "idk") {
+    player = hunter[i];
+  } else if (player.name === "wind") {
+    player = el_wind[i];
+  } else if (player.name === "crystal") {
+    player = el_crystal[i];
   }
 
-  player.sprites.idle.image.src = player_use.sprites.idle.imgSrc;
-  player.sprites.run.image.src = player_use.sprites.run.imgSrc;
-  player.sprites.jump.image.src = player_use.sprites.jump.imgSrc;
-  player.sprites.fall.image.src = player_use.sprites.fall.imgSrc;
-  player.sprites.attack2.image.src = player_use.sprites.attack2.imgSrc;
-  player.sprites.attack1.image.src = player_use.sprites.attack1.imgSrc;
-  player.sprites.death.image.src = player_use.sprites.death.imgSrc;
-  player.sprites.takehit.image.src = player_use.sprites.hit.imgSrc;
-  player.attackbox.offset.x = player_use.attackbox.offset.x;
+  p1.sprites.idle.image.src = player.sprites.idle.imgSrc;
+  p1.sprites.run.image.src = player.sprites.run.imgSrc;
+  p1.sprites.jump.image.src = player.sprites.jump.imgSrc;
+  p1.sprites.fall.image.src = player.sprites.fall.imgSrc;
+  p1.sprites.attack2.image.src = player.sprites.attack2.imgSrc;
+  p1.sprites.attack1.image.src = player.sprites.attack1.imgSrc;
+  p1.sprites.death.image.src = player.sprites.death.imgSrc;
+  p1.sprites.takehit.image.src = player.sprites.hit.imgSrc;
+  p1.attackbox.offset.x = player.attackbox.offset.x;
 }

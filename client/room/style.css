@@ -61,3 +61,94 @@ img {
   height: 150px;
   object-fit: cover;
 }
+
+.comp {
+  position: absolute;
+  display: flex;
+  width: 80%;
+  align-items: center;
+  padding: 20px;
+}
+
+.player {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  border: 5px solid white;
+}
+
+.phealth {
+  background-color: rgb(155, 25, 25);
+  height: 30px;
+  width: 100%;
+}
+
+#ol-heal {
+  position: absolute;
+  background: #818cf8;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+#timer {
+  background-color: black;
+  width: 100px;
+  height: 50px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border: 5px solid white;
+  font-family: "Press Start 2P", cursive;
+  font-size: x-large;
+}
+
+.enemy {
+  position: relative;
+  width: 100%;
+  border: 5px solid white;
+}
+
+.ehealth {
+  background-color: rgb(155, 25, 25);
+  height: 30px;
+  width: 100%;
+}
+
+#en-heal {
+  position: absolute;
+  background: #818cf8;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#result {
+  text-align: center;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  font-weight: 700;
+  display: none;
+}
+
+#Pname,
+#Ename {
+  text-align: center;
+  font-family: "Press Start 2P", arial;
+  color: coral;
+  margin: 5px;
+}
+
+.creator {
+  color: #fff;
+  font-size: 25px;
+  bottom: 25px;
+  font-family: "Press Start 2P", arial;
+}

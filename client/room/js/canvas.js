@@ -232,9 +232,11 @@ function animate() {
 
   if (keys.a.pressed && p1.lastkey === "a" && p1.position.x > 40) {
     p1.velocity.x = -5;
+    socket.emit("positionUpdate", { position: p1.position.x });
     p1.switchsprite("run");
   } else if (keys.d.pressed && p1.lastkey === "d" && p1.position.x < 900) {
     p1.velocity.x = 5;
+    socket.emit("positionUpdate", { position: p1.position });
     p1.switchsprite("run");
   } else if (
     (keys.d.pressed && p1.lastkey === "d") ||
@@ -261,5 +263,35 @@ function animate() {
     }
   } else {
     p1.switchsprite("idle");
+  }
+  //jump
+
+  if (player.need.canJump) {
+    if (p1.velocity.y < 0) {
+      p1.switchsprite("jump");
+    } else if (p1.velocity.y > 0) {
+      p1.switchsprite("fall");
+    }
+  }
+  // detect for collision & enemy gets hit
+  if (
+    retangularcollision({
+      rectangle1: player,
+      rectangle2: enemy,
+    }) &&
+    player.isattacking &&
+    player.framecurrent === 3
+  ) {
+    enemy.takehit();
+    player.isattacking = false;
+
+    gsap.to("#en-heal", {
+      width: (100 * enemy.health) / enemy.no + "%",
+    });
+  }
+
+  // if player misses
+  if (player.isattacking && player.framecurrent === 3) {
+    player.isattacking = false;
   }
 }
