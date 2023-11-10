@@ -2,10 +2,10 @@ const express = require("express");
 const app = express();
 
 const path = require("path");
-// var http = require("http");
+var http = require("http");
 const { Server } = require("socket.io");
 
-import http from 'node:http';
+// import http as http from 'node:http';
 
 const server = http.createServer(app);
 
@@ -24,10 +24,12 @@ io.on("connection", (socket) => {
         let p1obj = {
           p1name: arr[0].name,
           p1char: arr[0].char,
+          amI:false
         };
         let p2obj = {
           p2name: arr[1].name,
           p2char: arr[1].char,
+          amI:true
         };
         let obj = {
           p1: p1obj,
@@ -40,9 +42,12 @@ io.on("connection", (socket) => {
         io.emit("s", { allPlayers: playerArr });
         socket.on("weNeed", () => {
           io.emit("Got", { allPlayers: playerArr });
-
-          playerArr = [];
+          allPlayers = [];
         });
+        socket.on("positionUpdate",(e)=>{
+          io.emit("Update",{allPosition:e})
+          console.log(e)
+        })
       }
     }
   });

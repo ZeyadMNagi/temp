@@ -1,5 +1,5 @@
 var canPress = true;
-
+var p1Jump = true;
 window.addEventListener("keydown", (event) => {
   if (canPress === true) {
     switch (event.key) {

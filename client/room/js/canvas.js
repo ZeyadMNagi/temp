@@ -216,6 +216,28 @@ const keys = {
   },
 };
 
+socket.on("Update", (e) => {
+  p1.position.x = e.allPosition.p2X;
+  p2.position.x = e.allPosition.p1X;
+  p1.position.y = e.allPosition.p2Y;
+  p2.position.y = e.allPosition.p1Y;
+  background0.position.x = e.allPosition.b0;
+  background.position.x = e.allPosition.b;
+  background1.position.x = e.allPosition.b1;
+  // shop_put.position.x = e.allPosition.b1;
+
+  background0.update();
+  background.update();
+  background1.update();
+  if (background_2.need.Shop) {
+    shop_put.update();
+  }
+
+  p1.update();
+  p2.update();
+  console.log(e.allPosition);
+});
+
 let lastkey;
 function animate() {
   window.requestAnimationFrame(animate);
@@ -237,12 +259,52 @@ function animate() {
 
   if (keys.a.pressed && p1.lastkey === "a" && p1.position.x > 40) {
     p1.velocity.x = -5;
-    socket.emit("positionUpdate", { position: p1.position.x });
     p1.switchsprite("run");
+    if (found.amI) {
+      socket.emit("positionUpdate", {
+        p1X: p2.position.x,
+        p2X: p1.position.x,
+        p1Y: p2.position.y,
+        p2Y: p2.position.y,
+        b1: background1.position.x,
+        b0: background0.position.x,
+        b: background.position.x,
+      });
+    }else{
+      socket.emit("positionUpdate", {
+        p1X: p1.position.x,
+        p2X: p2.position.x,
+        p1Y: p1.position.y,
+        p2Y: p2.position.y,
+        b1: background1.position.x,
+        b0: background0.position.x,
+        b: background.position.x,
+      });
+    }
   } else if (keys.d.pressed && p1.lastkey === "d" && p1.position.x < 900) {
     p1.velocity.x = 5;
-    socket.emit("positionUpdate", { position: p1.position });
     p1.switchsprite("run");
+    if (found.amI) {
+    socket.emit("positionUpdate", {
+      p1X: p2.position.x,
+      p2X: p1.position.x,
+      p1Y: p2.position.y,
+      p2Y: p2.position.y,
+      b1: background1.position.x,
+      b0: background0.position.x,
+      b: background.position.x,
+    });
+  }else{
+    socket.emit("positionUpdate", {
+      p1X: p1.position.x,
+      p2X: p2.position.x,
+      p1Y: p1.position.y,
+      p2Y: p2.position.y,
+      b1: background1.position.x,
+      b0: background0.position.x,
+      b: background.position.x,
+    });
+  }
   } else if (
     (keys.d.pressed && p1.lastkey === "d") ||
     (keys.a.pressed && p1.lastkey === "a")
@@ -256,6 +318,16 @@ function animate() {
       background1.position.x -= 5;
       background0.position.x -= 5;
       p2.position.x -= 5;
+      socket.emit("positionUpdate", {
+        p1X: p1.position.x,
+        p2X: p2.position.x,
+        p1Y: p1.position.y,
+        p2Y: p2.position.y,
+        b1: background1.position.x,
+        b0: background0.position.x,
+        b: background.position.x,
+      });
+      console.log(p1.position, p2.position);
     }
     if (keys.a.pressed && background0.position.x <= 0 && p2.position.x <= 900) {
       if (shop_put) {
@@ -265,6 +337,16 @@ function animate() {
       background1.position.x += 5;
       background0.position.x += 5;
       p2.position.x += 5;
+      socket.emit("positionUpdate", {
+        p1X: p1.position.x,
+        p2X: p2.position.x,
+        p1Y: p1.position.y,
+        p2Y: p2.position.y,
+        b1: background1.position.x,
+        b0: background0.position.x,
+        b: background.position.x,
+      });
+      console.log(p1.position, p2.position);
     }
   } else {
     p1.switchsprite("idle");
@@ -278,6 +360,7 @@ function animate() {
       p1.switchsprite("fall");
     }
   }
+
   // detect for collision & enemy gets hit
   if (
     retangularcollision({

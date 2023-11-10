@@ -215,7 +215,8 @@
       var name;
       var player;
       var enemy;
-      var oppName
+      var oppName;
+      var found;
       function find(element, me) {
         name = element.value;
         if (element.value == null || element.value == "") {
@@ -233,9 +234,12 @@
         document.querySelector("#game").style.display = "block";
         let allPlayersArray = e.allPlayers;
         console.log(allPlayersArray);
-        const found = allPlayersArray.find(
+        found = allPlayersArray.find(
           (obj) => obj.p1.p1name == `${name}` || obj.p2.p2name == `${name}`
         );
+        if (found.amI) {
+          player = found.p2;
+        }
         found.p1.p1name == `${name}`
           ? (oppName = found.p2.p2name)
           : (oppName = found.p1.p1name);
@@ -244,6 +248,7 @@
           : (enemy = found.p1.p1char);
         start();
       });
+      console.log(found);
     </script>
   </body>
 </html>
