@@ -12,6 +12,7 @@ const el_crystal = [el_crystal_1, el_crystal_2];
 const el_wind = [el_wind_1, el_wind_2];
 
 function face_P(i) {
+  // Update player character based on class name
   if (player.name === "wizard") {
     player = wizard[i];
   } else if (player.name === "warrior") {
@@ -38,6 +39,7 @@ function face_P(i) {
     player = el_crystal[i];
   }
 
+  // Update player sprites and attackbox
   p1.sprites.idle.image.src = player.sprites.idle.imgSrc;
   p1.sprites.run.image.src = player.sprites.run.imgSrc;
   p1.sprites.jump.image.src = player.sprites.jump.imgSrc;

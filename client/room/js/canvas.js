@@ -217,6 +217,7 @@ const keys = {
 };
 
 socket.on("Update", (e) => {
+  // Set positions for players and backgrounds
   p1.position.x = e.allPosition.p2X;
   p2.position.x = e.allPosition.p1X;
   p1.position.y = e.allPosition.p2Y;
@@ -224,17 +225,22 @@ socket.on("Update", (e) => {
   background0.position.x = e.allPosition.b0;
   background.position.x = e.allPosition.b;
   background1.position.x = e.allPosition.b1;
-  // shop_put.position.x = e.allPosition.b1;
 
+  // Update backgrounds
   background0.update();
   background.update();
   background1.update();
+
+  // Update shop if needed
   if (background_2.need.Shop) {
     shop_put.update();
   }
 
+  // Update players
   p1.update();
   p2.update();
+
+  // Log updated positions
   console.log(e.allPosition);
 });
 
@@ -270,7 +276,7 @@ function animate() {
         b0: background0.position.x,
         b: background.position.x,
       });
-    }else{
+    } else {
       socket.emit("positionUpdate", {
         p1X: p1.position.x,
         p2X: p2.position.x,
@@ -285,26 +291,26 @@ function animate() {
     p1.velocity.x = 5;
     p1.switchsprite("run");
     if (found.amI) {
-    socket.emit("positionUpdate", {
-      p1X: p2.position.x,
-      p2X: p1.position.x,
-      p1Y: p2.position.y,
-      p2Y: p2.position.y,
-      b1: background1.position.x,
-      b0: background0.position.x,
-      b: background.position.x,
-    });
-  }else{
-    socket.emit("positionUpdate", {
-      p1X: p1.position.x,
-      p2X: p2.position.x,
-      p1Y: p1.position.y,
-      p2Y: p2.position.y,
-      b1: background1.position.x,
-      b0: background0.position.x,
-      b: background.position.x,
-    });
-  }
+      socket.emit("positionUpdate", {
+        p1X: p2.position.x,
+        p2X: p1.position.x,
+        p1Y: p2.position.y,
+        p2Y: p2.position.y,
+        b1: background1.position.x,
+        b0: background0.position.x,
+        b: background.position.x,
+      });
+    } else {
+      socket.emit("positionUpdate", {
+        p1X: p1.position.x,
+        p2X: p2.position.x,
+        p1Y: p1.position.y,
+        p2Y: p2.position.y,
+        b1: background1.position.x,
+        b0: background0.position.x,
+        b: background.position.x,
+      });
+    }
   } else if (
     (keys.d.pressed && p1.lastkey === "d") ||
     (keys.a.pressed && p1.lastkey === "a")

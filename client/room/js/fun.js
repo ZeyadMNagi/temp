@@ -8,7 +8,8 @@ var isAR = localStorage.getItem("arabic");
 P_name.innerHTML = name;
 E_name.innerHTML = oppName;
 
-function retangularcollision({ rectangle1, rectangle2 }) {
+function retangularCollision({ rectangle1, rectangle2 }) {
+  // Check if rectangles intersect
   return (
     rectangle1.attackbox.position.x + rectangle1.attackbox.width >=
       rectangle2.position.x &&
@@ -19,12 +20,16 @@ function retangularcollision({ rectangle1, rectangle2 }) {
     rectangle1.attackbox.position.y <= rectangle2.position.y + rectangle2.height
   );
 }
-
 function determineWinner({ p1, p2, timeid }) {
+  // Stop timer
   clearTimeout(timeid);
+
+  // Display game result
   setTimeout(() => {
     pop.style.display = "flex";
   }, 1000);
+
+  // Check winner based on health
   if (!isAR) {
     if (p1.health === p2.health) {
       document.querySelector("#result").innerHTML = "TIE";
@@ -49,7 +54,8 @@ function determineWinner({ p1, p2, timeid }) {
     }
   }
 
-  retangularcollision;
+  // Check for collision
+  rectangularcollision;
 }
 
 function closeForm() {
