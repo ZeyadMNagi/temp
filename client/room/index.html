@@ -17,8 +17,9 @@
     ></script>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script defer src="../two-player/the main/js/classes.js"></script>
+    <script defer src="../two-player/the main/js/character.js"></script>
     <title>choose the mode</title>
-    <script></script>
   </head>
 
   <body>
@@ -170,8 +171,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script defer src="../two-player/the main/js/character.js"></script>
-    <script defer src="../two-player/the main/js/classes.js"></script>
     <script defer src="js/fun.js"></script>
     <script defer src="js/faces.js"></script>
     <script defer src="js/controllar.js"></script>
@@ -216,14 +215,16 @@
       var player;
       var enemy;
       var oppName;
+      var mo;
       var found;
+      var char;
       function find(element, me) {
         name = element.value;
         if (element.value == null || element.value == "") {
           alert("Enter your name");
         } else {
           socket.emit("find", { name: name, character: character });
-          player = character;
+          char = character;
           document.getElementById("loading").style.display = "block";
           me.disabled = true;
         }
@@ -237,18 +238,22 @@
         found = allPlayersArray.find(
           (obj) => obj.p1.p1name == `${name}` || obj.p2.p2name == `${name}`
         );
-        if (found.amI) {
-          player = found.p2;
+
+        if (found.p1.p1name == `${name}` && !found.p1.amI) {
+          player = char;
+          oppName = found.p2.p2name;
+          enemy = found.p2.p2char;
+          mo = found.p1;
+        } else {
+          player = found.p1.p1char;
+          oppName = found.p1.p1name;
+          enemy = char;
+          mo = found.p2;
         }
-        found.p1.p1name == `${name}`
-          ? (oppName = found.p2.p2name)
-          : (oppName = found.p1.p1name);
-        found.p1.p1name == `${name}`
-          ? (enemy = found.p2.p2char)
-          : (enemy = found.p1.p1char);
+        EP = mo.amI;
         start();
+        console.log(mo.amI);
       });
-      console.log(found);
     </script>
   </body>
 </html>

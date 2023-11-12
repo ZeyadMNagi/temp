@@ -50,3 +50,40 @@ function face_P(i) {
   p1.sprites.takehit.image.src = player.sprites.hit.imgSrc;
   p1.attackbox.offset.x = player.attackbox.offset.x;
 }
+function face_E(i) {
+  if (enemy.name === "wizard") {
+    enemy = wizard[i];
+  } else if (enemy.name === "warrior") {
+    enemy = warrior[i];
+  } else if (enemy.name === "samurai") {
+    enemy = samurai[i];
+  } else if (enemy.name === "king") {
+    enemy = king[i];
+  } else if (enemy.name === "Evil wizard") {
+    enemy = evil[i];
+  } else if (enemy.name === "Knight") {
+    enemy = knight[i];
+  } else if (enemy.name === "fire wizard") {
+    enemy = fire[i];
+  } else if (enemy.name === "goblin") {
+    enemy = goblin[i];
+  } else if (enemy.name === "skeleton") {
+    enemy = skeleton[i];
+  } else if (enemy.name === "idk") {
+    enemy = hunter[i];
+  } else if (enemy.name === "wind") {
+    player_use = el_wind[i];
+  } else if (enemy.name === "crystal") {
+    player_use = el_crystal[i];
+  }
+
+  p2.sprites.idle.image.src = enemy.sprites.idle.imgSrc;
+  p2.sprites.run.image.src = enemy.sprites.run.imgSrc;
+  p2.sprites.jump.image.src = enemy.sprites.jump.imgSrc;
+  p2.sprites.fall.image.src = enemy.sprites.fall.imgSrc;
+  p2.sprites.attack2.image.src = enemy.sprites.attack2.imgSrc;
+  p2.sprites.attack1.image.src = enemy.sprites.attack1.imgSrc;
+  p2.sprites.death.image.src = enemy.sprites.death.imgSrc;
+  p2.sprites.takehit.image.src = enemy.sprites.hit.imgSrc;
+  p2.attackbox.offset.x = enemy.attackbox.offset.x;
+}

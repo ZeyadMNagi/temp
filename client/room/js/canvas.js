@@ -199,19 +199,16 @@ const keys = {
   a: {
     pressed: false,
   },
-  d: {
+  e: {
     pressed: false,
   },
   w: {
     pressed: false,
   },
-  ArrowRight: {
+  d: {
     pressed: false,
   },
-  ArrowLeft: {
-    pressed: false,
-  },
-  ArrowUp: {
+  s: {
     pressed: false,
   },
 };
@@ -266,51 +263,18 @@ function animate() {
   if (keys.a.pressed && p1.lastkey === "a" && p1.position.x > 40) {
     p1.velocity.x = -5;
     p1.switchsprite("run");
-    if (found.amI) {
-      socket.emit("positionUpdate", {
-        p1X: p2.position.x,
-        p2X: p1.position.x,
-        p1Y: p2.position.y,
-        p2Y: p2.position.y,
-        b1: background1.position.x,
-        b0: background0.position.x,
-        b: background.position.x,
-      });
-    } else {
-      socket.emit("positionUpdate", {
-        p1X: p1.position.x,
-        p2X: p2.position.x,
-        p1Y: p1.position.y,
-        p2Y: p2.position.y,
-        b1: background1.position.x,
-        b0: background0.position.x,
-        b: background.position.x,
-      });
-    }
+    socket.emit("positionUpdate", {
+      p1X: p1.position.x,
+      p2X: p2.position.x,
+      p1Y: p1.position.y,
+      p2Y: p2.position.y,
+      b1: background1.position.x,
+      b0: background0.position.x,
+      b: background.position.x,
+    });
   } else if (keys.d.pressed && p1.lastkey === "d" && p1.position.x < 900) {
     p1.velocity.x = 5;
     p1.switchsprite("run");
-    if (found.amI) {
-      socket.emit("positionUpdate", {
-        p1X: p2.position.x,
-        p2X: p1.position.x,
-        p1Y: p2.position.y,
-        p2Y: p2.position.y,
-        b1: background1.position.x,
-        b0: background0.position.x,
-        b: background.position.x,
-      });
-    } else {
-      socket.emit("positionUpdate", {
-        p1X: p1.position.x,
-        p2X: p2.position.x,
-        p1Y: p1.position.y,
-        p2Y: p2.position.y,
-        b1: background1.position.x,
-        b0: background0.position.x,
-        b: background.position.x,
-      });
-    }
   } else if (
     (keys.d.pressed && p1.lastkey === "d") ||
     (keys.a.pressed && p1.lastkey === "a")
@@ -364,6 +328,84 @@ function animate() {
       p1.switchsprite("jump");
     } else if (p1.velocity.y > 0) {
       p1.switchsprite("fall");
+    }
+  }
+  // Enemy movement
+  if (keys.a.pressed && p2.lastkey === "a" && p2.position.x > 40) {
+    p2.velocity.x = -5;
+    p2.switchsprite("run");
+    socket.emit("positionUpdate", {
+      p1X: p1.position.x,
+      p2X: p2.position.x,
+      p1Y: p1.position.y,
+      p2Y: p2.position.y,
+      b1: background1.position.x,
+      b0: background0.position.x,
+      b: background.position.x,
+    });
+  } else if (keys.d.pressed && p2.lastkey === "d" && p2.position.x < 900) {
+    p2.velocity.x = 5;
+    p2.switchsprite("run");
+    socket.emit("positionUpdate", {
+      p1X: p1.position.x,
+      p2X: p2.position.x,
+      p1Y: p1.position.y,
+      p2Y: p2.position.y,
+      b1: background1.position.x,
+      b0: background0.position.x,
+      b: background.position.x,
+    });
+  } else if (
+    (keys.a.pressed && enemy.lastkey === "a") ||
+    (keys.d.pressed && enemy.lastkey === "d")
+  ) {
+    enemy.switchsprite("run");
+    if (keys.d.pressed && background1.position.x >= 0 && p1.position.x >= 50) {
+      if (shop_put) {
+        shop_put.position.x -= 5;
+      }
+
+      background.position.x -= 5;
+      background1.position.x -= 5;
+      background0.position.x -= 5;
+      p1.position.x -= 5;
+      socket.emit("positionUpdate", {
+        p1X: p1.position.x,
+        p2X: p2.position.x,
+        p1Y: p1.position.y,
+        p2Y: p2.position.y,
+        b1: background1.position.x,
+        b0: background0.position.x,
+        b: background.position.x,
+      });
+    }
+    if (keys.a.pressed && background0.position.x <= 0 && p1.position.x <= 900) {
+      if (shop_put) {
+        shop_put.position.x += 5;
+      }
+      background.position.x += 5;
+      background1.position.x += 5;
+      background0.position.x += 5;
+      p1.position.x += 5;
+      socket.emit("positionUpdate", {
+        p1X: p1.position.x,
+        p2X: p2.position.x,
+        p1Y: p1.position.y,
+        p2Y: p2.position.y,
+        b1: background1.position.x,
+        b0: background0.position.x,
+        b: background.position.x,
+      });
+    }
+  } else {
+    p2.switchsprite("idle");
+  }
+  // jumping
+  if (enemy.need.canJump) {
+    if (p2.velocity.y < 0) {
+      p2.switchsprite("jump");
+    } else if (p2.velocity.y > 0) {
+      p2.switchsprite("fall");
     }
   }
 

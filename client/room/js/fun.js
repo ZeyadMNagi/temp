@@ -8,7 +8,7 @@ var isAR = localStorage.getItem("arabic");
 P_name.innerHTML = name;
 E_name.innerHTML = oppName;
 
-function retangularCollision({ rectangle1, rectangle2 }) {
+function retangularcollision({ rectangle1, rectangle2 }) {
   // Check if rectangles intersect
   return (
     rectangle1.attackbox.position.x + rectangle1.attackbox.width >=
