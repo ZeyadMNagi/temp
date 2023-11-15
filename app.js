@@ -48,15 +48,11 @@ io.on("connection", (socket) => {
         arr.splice(0, 2);
 
         // Emit updated all matches list to all clients
-        io.emit("s", { allPlayers: playerArr });
-        // Listen for weNeed event from a client
-        socket.on("weNeed", () => {
-          // Emit current all matches list to all clients
-          io.emit("Got", { allPlayers: playerArr });
-          // Reset all matches list
-          allPlayers = [];
-          console.log(allPlayers)
+        io.emit("s", { allPlayers: playerArr }, () => {
+          console.log(playerArr);
+          playerArr = [];
         });
+
         // Listen for positionUpdate event from a client
         socket.on("positionUpdate", (e) => {
           // Emit updated player positions to all clients

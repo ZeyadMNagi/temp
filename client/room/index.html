@@ -178,38 +178,6 @@
     <script>
       var character;
       var choices = document.querySelectorAll(".img img");
-      function choose1(element) {
-        Array.from(choices).forEach((child) => {
-          child.style.border = "unset";
-        });
-        element.style.border = "5px solid #fff";
-        playerid = element.id;
-        if (playerid === "p1") {
-          character = wizard_1;
-        } else if (playerid === "p3") {
-          character = warrior_1;
-        } else if (playerid === "p5") {
-          character = samurai_1;
-        } else if (playerid === "p7") {
-          character = king_1;
-        } else if (playerid === "p13") {
-          character = evil_1;
-        } else if (playerid === "p15") {
-          character = knight_1;
-        } else if (playerid === "p9") {
-          character = fire_wizard_1;
-        } else if (playerid === "p17") {
-          character = goblin_1;
-        } else if (playerid === "p19") {
-          character = skeleton_1;
-        } else if (playerid === "p21") {
-          character = el_crystal_1;
-        } else if (playerid === "p25") {
-          character = el_wind_1;
-        } else if (playerid === "p27") {
-          character = hunter_1;
-        }
-      }
       const socket = io();
       var name;
       var player;
@@ -218,6 +186,59 @@
       var mo;
       var found;
       var char;
+      var EP;
+
+      //functions
+
+      function choose1(element) {
+        Array.from(choices).forEach((child) => {
+          child.style.border = "unset";
+        });
+        element.style.border = "5px solid #fff";
+        let playerid = element.id;
+        switch (playerid) {
+          case "p1":
+            character = wizard_1;
+            break;
+          case "p3":
+            character = warrior_1;
+            break;
+          case "p5":
+            character = samurai_1;
+            break;
+          case "p7":
+            character = king_1;
+            break;
+          case "p13":
+            character = evil_1;
+            break;
+          case "p15":
+            character = knight_1;
+            break;
+          case "p9":
+            character = fire_wizard_1;
+            break;
+          case "p17":
+            character = goblin_1;
+            break;
+          case "p19":
+            character = skeleton_1;
+            break;
+          case "p21":
+            character = el_crystal_1;
+            break;
+          case "p25":
+            character = el_wind_1;
+            break;
+          case "p27":
+            character = hunter_1;
+            break;
+          default:
+            character = null;
+            break;
+        }
+      }
+
       function find(element, me) {
         name = element.value;
         if (element.value == null || element.value == "") {
@@ -239,17 +260,22 @@
           (obj) => obj.p1.p1name == `${name}` || obj.p2.p2name == `${name}`
         );
 
-        if (found.p1.p1name == `${name}` && !found.p1.amI) {
-          player = char;
-          oppName = found.p2.p2name;
-          enemy = found.p2.p2char;
-          mo = found.p1;
-        } else {
-          player = found.p1.p1char;
-          oppName = found.p1.p1name;
-          enemy = char;
-          mo = found.p2;
-        }
+        // Ternary operators
+        player =
+          found.p1.p1name == `${name}` && !found.p1.amI
+            ? char
+            : found.p1.p1char;
+        oppName =
+          found.p1.p1name == `${name}` && !found.p1.amI
+            ? found.p2.p2name
+            : found.p1.p1name;
+        enemy =
+          found.p1.p1name == `${name}` && !found.p1.amI
+            ? found.p2.p2char
+            : char;
+        mo =
+          found.p1.p1name == `${name}` && !found.p1.amI ? found.p1 : found.p2;
+
         EP = mo.amI;
         start();
         console.log(mo.amI);

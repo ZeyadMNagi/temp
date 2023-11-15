@@ -213,12 +213,24 @@ const keys = {
   },
 };
 
+function send() {
+  socket.emit("positionUpdate", {
+    p1X: p1.position.x,
+    p2X: p2.position.x,
+    p1Y: p1.position.y,
+    p2Y: p2.position.y,
+    b1: background1.position.x,
+    b0: background0.position.x,
+    b: background.position.x,
+  });
+}
+
 socket.on("Update", (e) => {
   // Set positions for players and backgrounds
-  p1.position.x = e.allPosition.p2X;
-  p2.position.x = e.allPosition.p1X;
-  p1.position.y = e.allPosition.p2Y;
-  p2.position.y = e.allPosition.p1Y;
+  p1.position.x = e.allPosition.p1X;
+  p2.position.x = e.allPosition.p2X;
+  p1.position.y = e.allPosition.p1Y;
+  p2.position.y = e.allPosition.p2Y;
   background0.position.x = e.allPosition.b0;
   background.position.x = e.allPosition.b;
   background1.position.x = e.allPosition.b1;
@@ -260,69 +272,59 @@ function animate() {
   p1.velocity.x = 0;
   p2.velocity.x = 0;
 
-  if (keys.a.pressed && p1.lastkey === "a" && p1.position.x > 40) {
-    p1.velocity.x = -5;
-    p1.switchsprite("run");
-    socket.emit("positionUpdate", {
-      p1X: p1.position.x,
-      p2X: p2.position.x,
-      p1Y: p1.position.y,
-      p2Y: p2.position.y,
-      b1: background1.position.x,
-      b0: background0.position.x,
-      b: background.position.x,
-    });
-  } else if (keys.d.pressed && p1.lastkey === "d" && p1.position.x < 900) {
-    p1.velocity.x = 5;
-    p1.switchsprite("run");
-  } else if (
-    (keys.d.pressed && p1.lastkey === "d") ||
-    (keys.a.pressed && p1.lastkey === "a")
-  ) {
-    p1.switchsprite("run");
-    if (keys.d.pressed && background1.position.x >= 0 && p2.position.x >= 50) {
-      if (shop_put) {
-        shop_put.position.x -= 5;
+  // Player movement
+  switch (p1.lastkey) {
+    case "a":
+      if (keys.a.pressed && p1.position.x > 40) {
+        p1.velocity.x = -5;
+        p1.switchsprite("run");
+        send();
+      } else if (
+        keys.a.pressed &&
+        background0.position.x <= 0 &&
+        p2.position.x <= 900
+      ) {
+        if (shop_put) {
+          shop_put.position.x += 5;
+        }
+        background.position.x += 5;
+        background1.position.x += 5;
+        background0.position.x += 5;
+        p2.position.x += 5;
+        send();
+        console.log(p1.position, p2.position);
+      } else {
+        p1.switchsprite("idle");
       }
-      background.position.x -= 5;
-      background1.position.x -= 5;
-      background0.position.x -= 5;
-      p2.position.x -= 5;
-      socket.emit("positionUpdate", {
-        p1X: p1.position.x,
-        p2X: p2.position.x,
-        p1Y: p1.position.y,
-        p2Y: p2.position.y,
-        b1: background1.position.x,
-        b0: background0.position.x,
-        b: background.position.x,
-      });
-      console.log(p1.position, p2.position);
-    }
-    if (keys.a.pressed && background0.position.x <= 0 && p2.position.x <= 900) {
-      if (shop_put) {
-        shop_put.position.x += 5;
+      break;
+    case "d":
+      if (keys.d.pressed && p1.position.x < 900) {
+        p1.velocity.x = 5;
+        p1.switchsprite("run");
+        send();
+      } else if (
+        keys.d.pressed &&
+        background1.position.x >= 0 &&
+        p2.position.x >= 50
+      ) {
+        if (shop_put) {
+          shop_put.position.x -= 5;
+        }
+        background.position.x -= 5;
+        background1.position.x -= 5;
+        background0.position.x -= 5;
+        p2.position.x -= 5;
+        send();
+        console.log(p1.position, p2.position);
+      } else {
+        p1.switchsprite("idle");
       }
-      background.position.x += 5;
-      background1.position.x += 5;
-      background0.position.x += 5;
-      p2.position.x += 5;
-      socket.emit("positionUpdate", {
-        p1X: p1.position.x,
-        p2X: p2.position.x,
-        p1Y: p1.position.y,
-        p2Y: p2.position.y,
-        b1: background1.position.x,
-        b0: background0.position.x,
-        b: background.position.x,
-      });
-      console.log(p1.position, p2.position);
-    }
-  } else {
-    p1.switchsprite("idle");
+      break;
+    default:
+      p1.switchsprite("idle");
   }
-  //jump
 
+  // Jump
   if (player.need.canJump) {
     if (p1.velocity.y < 0) {
       p1.switchsprite("jump");
@@ -330,77 +332,58 @@ function animate() {
       p1.switchsprite("fall");
     }
   }
-  // Enemy movement
-  if (keys.a.pressed && p2.lastkey === "a" && p2.position.x > 40) {
-    p2.velocity.x = -5;
-    p2.switchsprite("run");
-    socket.emit("positionUpdate", {
-      p1X: p1.position.x,
-      p2X: p2.position.x,
-      p1Y: p1.position.y,
-      p2Y: p2.position.y,
-      b1: background1.position.x,
-      b0: background0.position.x,
-      b: background.position.x,
-    });
-  } else if (keys.d.pressed && p2.lastkey === "d" && p2.position.x < 900) {
-    p2.velocity.x = 5;
-    p2.switchsprite("run");
-    socket.emit("positionUpdate", {
-      p1X: p1.position.x,
-      p2X: p2.position.x,
-      p1Y: p1.position.y,
-      p2Y: p2.position.y,
-      b1: background1.position.x,
-      b0: background0.position.x,
-      b: background.position.x,
-    });
-  } else if (
-    (keys.a.pressed && enemy.lastkey === "a") ||
-    (keys.d.pressed && enemy.lastkey === "d")
-  ) {
-    enemy.switchsprite("run");
-    if (keys.d.pressed && background1.position.x >= 0 && p1.position.x >= 50) {
-      if (shop_put) {
-        shop_put.position.x -= 5;
-      }
 
-      background.position.x -= 5;
-      background1.position.x -= 5;
-      background0.position.x -= 5;
-      p1.position.x -= 5;
-      socket.emit("positionUpdate", {
-        p1X: p1.position.x,
-        p2X: p2.position.x,
-        p1Y: p1.position.y,
-        p2Y: p2.position.y,
-        b1: background1.position.x,
-        b0: background0.position.x,
-        b: background.position.x,
-      });
-    }
-    if (keys.a.pressed && background0.position.x <= 0 && p1.position.x <= 900) {
-      if (shop_put) {
-        shop_put.position.x += 5;
+  // Enemy movement
+  switch (p2.lastkey) {
+    case "a":
+      if (keys.a.pressed && p2.position.x > 40) {
+        p2.velocity.x = -5;
+        p2.switchsprite("run");
+        send();
+      } else if (
+        keys.a.pressed &&
+        background0.position.x <= 0 &&
+        p1.position.x <= 900
+      ) {
+        if (shop_put) {
+          shop_put.position.x += 5;
+        }
+        background.position.x += 5;
+        background1.position.x += 5;
+        background0.position.x += 5;
+        p1.position.x += 5;
+        send();
+      } else {
+        p2.switchsprite("idle");
       }
-      background.position.x += 5;
-      background1.position.x += 5;
-      background0.position.x += 5;
-      p1.position.x += 5;
-      socket.emit("positionUpdate", {
-        p1X: p1.position.x,
-        p2X: p2.position.x,
-        p1Y: p1.position.y,
-        p2Y: p2.position.y,
-        b1: background1.position.x,
-        b0: background0.position.x,
-        b: background.position.x,
-      });
-    }
-  } else {
-    p2.switchsprite("idle");
+      break;
+    case "d":
+      if (keys.d.pressed && p2.position.x < 900) {
+        p2.velocity.x = 5;
+        p2.switchsprite("run");
+        send();
+      } else if (
+        keys.d.pressed &&
+        background1.position.x >= 0 &&
+        p1.position.x >= 50
+      ) {
+        if (shop_put) {
+          shop_put.position.x -= 5;
+        }
+        background.position.x -= 5;
+        background1.position.x -= 5;
+        background0.position.x -= 5;
+        p1.position.x -= 5;
+        send();
+      } else {
+        p2.switchsprite("idle");
+      }
+      break;
+    default:
+      p2.switchsprite("idle");
   }
-  // jumping
+
+  // Jump
   if (enemy.need.canJump) {
     if (p2.velocity.y < 0) {
       p2.switchsprite("jump");
