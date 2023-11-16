@@ -9,17 +9,7 @@
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"
-      integrity="sha512-zoJXRvW2gC8Z0Xo3lBbao5+AS3g6YWr5ztKqaicua11xHo+AvE1b0lT9ODgrHTmNUxeCw0Ry4BGRYZfXu70weg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script defer src="../two-player/the main/js/classes.js"></script>
-    <script defer src="../two-player/the main/js/character.js"></script>
-    <title>choose the mode</title>
+    <title>Choose the Mode</title>
   </head>
 
   <body>
@@ -29,7 +19,6 @@
         <div id="game" style="display: block">
           <div class="comp">
             <!--player-->
-
             <div class="player">
               <div class="phealth">
                 <div id="Pname"></div>
@@ -37,9 +26,7 @@
               <div id="ol-heal"></div>
             </div>
             <!--timer-->
-
             <div id="timer"></div>
-
             <!--enemy-->
             <div class="enemy">
               <div class="ehealth">
@@ -51,11 +38,13 @@
           <canvas style="border: 7px solid wheat"></canvas>
           <div class="creator">
             <div class="ver" style="padding: 5px">V:3.5</div>
-            contact:<a
+            contact:
+            <a
               style="text-decoration: none; color: #68c1c4"
               href="mailto:zeyadnagi421@gmail.com"
-              >ZEYAD_M_NAGI</a
             >
+              ZEYAD_M_NAGI
+            </a>
           </div>
         </div>
         <div class="opening">
@@ -75,7 +64,7 @@
                 <img
                   id="p1"
                   src="../img/img/p1/preview.png"
-                  onclick="choose1( this)"
+                  onclick="choosePlayer( this)"
                   alt="wizard"
                 />
                 <img
@@ -83,75 +72,75 @@
                   id="p3"
                   class="wow"
                   alt="electric sword"
-                  onclick="choose1(this)"
+                  onclick="choosePlayer(this)"
                 />
                 <img
                   src="../img/img/p5/preview.png"
                   id="p5"
                   alt="ninja"
-                  onclick="choose1(this)"
+                  onclick="choosePlayer(this)"
                 />
                 <img
                   src="../img/img/p7/preview.png"
                   id="p7"
                   alt="the King"
-                  onclick="choose1(this)"
+                  onclick="choosePlayer(this)"
                 />
                 <img
                   src="../img/img/p13/Idle (2).png"
                   alt="evil wizard"
                   id="p13"
-                  onclick="choose1(this)"
+                  onclick="choosePlayer(this)"
                 />
                 <img
                   src="../img/img/p15/Idle (2).png"
                   alt="knight"
                   id="p15"
-                  onclick="choose1(this)"
+                  onclick="choosePlayer(this)"
                 />
                 <img
                   src="../img/img/p9/preview.png"
                   alt="fire wizard"
                   id="p9"
-                  onclick="choose1(this)"
+                  onclick="choosePlayer(this)"
                 />
                 <img
                   src="../img/img/p17/preview.png"
                   alt="goblin"
                   id="p17"
-                  onclick="choose1(this)"
+                  onclick="choosePlayer(this)"
                 />
                 <img
                   src="../img/img/p19/preview.png"
                   alt="skeleton"
                   id="p19"
-                  onclick="choose1(this)"
+                  onclick="choosePlayer(this)"
                 />
                 <img
                   src="../img/img/p25/crystal_mauler.png"
                   style="scale: 0.7"
                   alt="crystal"
                   id="p25"
-                  onclick="choose1(this)"
+                  onclick="choosePlayer(this)"
                 />
                 <img
                   src="../img/img/p27/wind_hashashin.png"
                   style="scale: 0.7"
                   alt="wind"
                   id="p27"
-                  onclick="choose1(this)"
+                  onclick="choosePlayer(this)"
                 />
                 <img
                   src="../img/img/p21/preview.png"
                   alt="green"
                   id="p21"
-                  onclick="choose1(this)"
+                  onclick="choosePlayer(this)"
                 />
               </div>
             </div>
             <button
               id="find"
-              onclick="find(document.getElementById('name'),this)"
+              onclick="findPlayer(document.getElementById('name'), this)"
             >
               Find a player
             </button>
@@ -166,16 +155,27 @@
       </div>
     </div>
     <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"
+      integrity="sha512-zoJXRvW2gC8Z0Xo3lBbao5+AS3g6YWr5ztKqaicua11xHo+AvE1b0lT9ODgrHTmNUxeCw0Ry4BGRYZfXu70weg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../two-player/the main/js/classes.js" defer></script>
+    <script src="../two-player/the main/js/character.js" defer></script>
+    <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
       integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
+      defer
     ></script>
     <script defer src="js/fun.js"></script>
     <script defer src="js/faces.js"></script>
     <script defer src="js/controllar.js"></script>
     <script defer src="js/canvas.js"></script>
     <script>
+      // Declare variables
       var character;
       var choices = document.querySelectorAll(".img img");
       const socket = io();
@@ -188,14 +188,18 @@
       var char;
       var EP;
 
-      //functions
-
-      function choose1(element) {
+      // Function to handle character selection
+      function choosePlayer(element) {
+        // Reset borders for all choices
         Array.from(choices).forEach((child) => {
           child.style.border = "unset";
         });
+
+        // Set border for the selected character
         element.style.border = "5px solid #fff";
         let playerid = element.id;
+
+        // Map the player ID to the corresponding character
         switch (playerid) {
           case "p1":
             character = wizard_1;
@@ -239,11 +243,15 @@
         }
       }
 
-      function find(element, me) {
+      // Function to initiate the finding process
+      function findPlayer(element, me) {
         name = element.value;
+
+        // Check if the name is entered
         if (element.value == null || element.value == "") {
           alert("Enter your name");
         } else {
+          // Emit find event with name and selected character
           socket.emit("find", { name: name, character: character });
           char = character;
           document.getElementById("loading").style.display = "block";
@@ -251,32 +259,30 @@
         }
       }
 
+      // Socket event listener for "s" event
       socket.on("s", (e) => {
-        document.querySelector(".opening").style.display = "none";
-        document.querySelector("#game").style.display = "block";
+        // Extract all players array from the event
         let allPlayersArray = e.allPlayers;
         console.log(allPlayersArray);
+        // Find the player in the array
         found = allPlayersArray.find(
-          (obj) => obj.p1.p1name == `${name}` || obj.p2.p2name == `${name}`
+          (obj) => obj.p1.name == `${name}` || obj.p2.name == `${name}`
         );
-
-        // Ternary operators
+        // Ternary operators to determine player, opponent, and enemy
         player =
-          found.p1.p1name == `${name}` && !found.p1.amI
-            ? char
-            : found.p1.p1char;
+          found.p1.name == `${name}` && !found.p1.amI ? char : found.p1.char;
         oppName =
-          found.p1.p1name == `${name}` && !found.p1.amI
-            ? found.p2.p2name
-            : found.p1.p1name;
+          found.p1.name == `${name}` && !found.p1.amI
+            ? found.p2.name
+            : found.p1.name;
         enemy =
-          found.p1.p1name == `${name}` && !found.p1.amI
-            ? found.p2.p2char
-            : char;
-        mo =
-          found.p1.p1name == `${name}` && !found.p1.amI ? found.p1 : found.p2;
+          found.p1.name == `${name}` && !found.p1.amI ? found.p2.char : char;
+        mo = found.p1.name == `${name}` && !found.p1.amI ? found.p1 : found.p2;
 
+        // Set EP based on whether the player is "me"
         EP = mo.amI;
+
+        // Start the game
         start();
         console.log(mo.amI);
       });

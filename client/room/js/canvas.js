@@ -1,22 +1,19 @@
+// Canvas setup
 const canvas = document.querySelector("canvas");
 const C = canvas.getContext("2d");
+canvas.width = 1024;
+canvas.height = 576;
 
+// Input flags
 var canPress = true;
 var canAttack_P = true;
 var canAttack_E = true;
-
 var playerJump = true;
 var enemyJump = true;
 var player_onGround = true;
 var enemy_onGround = true;
 
-canvas.width = 1024;
-canvas.height = 576;
-C.fillRect(0, 0, canvas.width, canvas.height);
-
-var p1;
-var p2;
-
+// Gravity
 var gravity = 0.5;
 
 const background = new sprite({
@@ -52,7 +49,7 @@ const background0 = new sprite({
   scale: background_2.scale,
 });
 
-//the shop
+// Shop sprite
 if (background_2.need.Shop) {
   var shop_put = new sprite({
     position: {
@@ -64,6 +61,12 @@ if (background_2.need.Shop) {
     framemax: 6,
   });
 }
+
+// Fighter instances
+var p1;
+var p2;
+
+// Start the game
 function start() {
   p1 = new Fighter({
     position: {
@@ -195,24 +198,16 @@ function start() {
   animate();
 }
 
+// Key states
 const keys = {
-  a: {
-    pressed: false,
-  },
-  e: {
-    pressed: false,
-  },
-  w: {
-    pressed: false,
-  },
-  d: {
-    pressed: false,
-  },
-  s: {
-    pressed: false,
-  },
+  a: { pressed: false },
+  e: { pressed: false },
+  w: { pressed: false },
+  d: { pressed: false },
+  s: { pressed: false },
 };
 
+// Function to send player positions to the server
 function send() {
   socket.emit("positionUpdate", {
     p1X: p1.position.x,
@@ -225,8 +220,9 @@ function send() {
   });
 }
 
+// Event listener for position updates from the server
 socket.on("Update", (e) => {
-  // Set positions for players and backgrounds
+  // Update positions for players and backgrounds
   p1.position.x = e.allPosition.p1X;
   p2.position.x = e.allPosition.p2X;
   p1.position.y = e.allPosition.p1Y;
@@ -235,12 +231,10 @@ socket.on("Update", (e) => {
   background.position.x = e.allPosition.b;
   background1.position.x = e.allPosition.b1;
 
-  // Update backgrounds
+  // Update backgrounds and shop (if needed)
   background0.update();
   background.update();
   background1.update();
-
-  // Update shop if needed
   if (background_2.need.Shop) {
     shop_put.update();
   }
@@ -253,12 +247,13 @@ socket.on("Update", (e) => {
   console.log(e.allPosition);
 });
 
-let lastkey;
+// Function to handle player movement and animations
 function animate() {
   window.requestAnimationFrame(animate);
   C.fillStyle = "black";
   C.fillRect(0, 0, canvas.width, canvas.height);
 
+  // Update backgrounds and shop (if needed)
   background0.update();
   background.update();
   background1.update();
@@ -266,180 +261,150 @@ function animate() {
     shop_put.update();
   }
 
+  // Update players
   p1.update();
   p2.update();
 
+  // Reset player velocities
   p1.velocity.x = 0;
   p2.velocity.x = 0;
 
-  // Player movement
+  // Handle player movement
   switch (p1.lastkey) {
     case "a":
-      if (keys.a.pressed && p1.position.x > 40) {
-        p1.velocity.x = -5;
-        p1.switchsprite("run");
-        send();
-      } else if (
-        keys.a.pressed &&
-        background0.position.x <= 0 &&
-        p2.position.x <= 900
-      ) {
-        if (shop_put) {
-          shop_put.position.x += 5;
-        }
-        background.position.x += 5;
-        background1.position.x += 5;
-        background0.position.x += 5;
-        p2.position.x += 5;
-        send();
-        console.log(p1.position, p2.position);
-      } else {
-        p1.switchsprite("idle");
-      }
+      // Handle left movement and scrolling
+      handlePlayerMovement(p1, keys.a, "run", 40, "d", 5, -5);
       break;
     case "d":
-      if (keys.d.pressed && p1.position.x < 900) {
-        p1.velocity.x = 5;
-        p1.switchsprite("run");
-        send();
-      } else if (
-        keys.d.pressed &&
-        background1.position.x >= 0 &&
-        p2.position.x >= 50
-      ) {
-        if (shop_put) {
-          shop_put.position.x -= 5;
-        }
-        background.position.x -= 5;
-        background1.position.x -= 5;
-        background0.position.x -= 5;
-        p2.position.x -= 5;
-        send();
-        console.log(p1.position, p2.position);
-      } else {
-        p1.switchsprite("idle");
-      }
+      // Handle right movement and scrolling
+      handlePlayerMovement(p1, keys.d, "run", 900, "a", -5, 5);
       break;
     default:
+      // Default to idle sprite
       p1.switchsprite("idle");
   }
 
-  // Jump
-  if (player.need.canJump) {
-    if (p1.velocity.y < 0) {
-      p1.switchsprite("jump");
-    } else if (p1.velocity.y > 0) {
-      p1.switchsprite("fall");
-    }
-  }
+  // Handle player jump
+  handlePlayerJump(p1, player);
 
-  // Enemy movement
+  // Handle enemy movement
   switch (p2.lastkey) {
     case "a":
-      if (keys.a.pressed && p2.position.x > 40) {
-        p2.velocity.x = -5;
-        p2.switchsprite("run");
-        send();
-      } else if (
-        keys.a.pressed &&
-        background0.position.x <= 0 &&
-        p1.position.x <= 900
-      ) {
-        if (shop_put) {
-          shop_put.position.x += 5;
-        }
-        background.position.x += 5;
-        background1.position.x += 5;
-        background0.position.x += 5;
-        p1.position.x += 5;
-        send();
-      } else {
-        p2.switchsprite("idle");
-      }
+      // Handle left movement and scrolling for the enemy
+      handlePlayerMovement(p2, keys.a, "run", 40, "d", 5, -5);
       break;
     case "d":
-      if (keys.d.pressed && p2.position.x < 900) {
-        p2.velocity.x = 5;
-        p2.switchsprite("run");
-        send();
-      } else if (
-        keys.d.pressed &&
-        background1.position.x >= 0 &&
-        p1.position.x >= 50
-      ) {
-        if (shop_put) {
-          shop_put.position.x -= 5;
-        }
-        background.position.x -= 5;
-        background1.position.x -= 5;
-        background0.position.x -= 5;
-        p1.position.x -= 5;
-        send();
-      } else {
-        p2.switchsprite("idle");
-      }
+      // Handle right movement and scrolling for the enemy
+      handlePlayerMovement(p2, keys.d, "run", 900, "a", -5, 5);
       break;
     default:
+      // Default to idle sprite for the enemy
       p2.switchsprite("idle");
   }
 
-  // Jump
-  if (enemy.need.canJump) {
-    if (p2.velocity.y < 0) {
-      p2.switchsprite("jump");
-    } else if (p2.velocity.y > 0) {
-      p2.switchsprite("fall");
+  // Handle enemy jump
+  handlePlayerJump(p2, enemy);
+
+  // Handle player- enemy collision and attack
+  handlePlayerEnemyCollision(p1, p2);
+
+  // Check for missed attacks
+  checkMissedAttack(p1);
+
+  // Check for game end
+  checkGameEnd(p1, p2);
+
+  // Handle double jump
+  handleDoubleJump(p1, 330, player_onGround);
+  handleDoubleJump(p2, 330, enemy_onGround);
+}
+
+// Function to handle player movement
+function handlePlayerMovement(
+  player,
+  key,
+  runSprite,
+  boundary,
+  oppositeKey,
+  scrollAmount,
+  playerVelocity
+) {
+  if (key.pressed && player.position.x > boundary) {
+    player.velocity.x = playerVelocity;
+    player.switchsprite(runSprite);
+    send();
+  } else if (
+    key.pressed &&
+    background0.position.x <= 0 &&
+    player.position.x <= 900
+  ) {
+    // Handle scrolling
+    if (shop_put) {
+      shop_put.position.x += scrollAmount;
+    }
+    background.position.x += scrollAmount;
+    background1.position.x += scrollAmount;
+    background0.position.x += scrollAmount;
+    player.position.x += scrollAmount;
+    send();
+  } else {
+    player.switchsprite("idle");
+  }
+}
+
+// Function to handle player jump
+function handlePlayerJump(player, playerConfig) {
+  if (playerConfig.need.canJump) {
+    if (player.velocity.y < 0) {
+      player.switchsprite("jump");
+    } else if (player.velocity.y > 0) {
+      player.switchsprite("fall");
     }
   }
+}
 
-  // detect for collision & enemy gets hit
+// Function to handle player-enemy collision and attack
+function handlePlayerEnemyCollision(player, enemy) {
   if (
-    retangularcollision({
-      rectangle1: p1,
-      rectangle2: p2,
-    }) &&
-    p1.isattacking &&
-    p1.framecurrent === 3
+    rectangularCollision({ rectangle1: player, rectangle2: enemy }) &&
+    player.isattacking &&
+    player.framecurrent === 3
   ) {
-    p2.takehit();
-    p1.isattacking = false;
-
-    gsap.to("#en-heal", {
-      width: (100 * p2.health) / p2.no + "%",
-    });
+    enemy.takehit();
+    player.isattacking = false;
+    gsap.to("#en-heal", { width: (100 * enemy.health) / enemy.no + "%" });
   }
+}
 
-  // if player misses
-  if (p1.isattacking && p1.framecurrent === 3) {
-    p1.isattacking = false;
+// Function to check missed attacks
+function checkMissedAttack(player) {
+  if (player.isattacking && player.framecurrent === 3) {
+    player.isattacking = false;
   }
-  //end game
-  if (p2.health <= 0 || p1.health <= 0) {
-    determineWinner({ p1, p2, timeid });
+}
+
+// Function to check game end
+function checkGameEnd(player1, player2) {
+  if (player2.health <= 0 || player1.health <= 0) {
+    determineWinner({ p1: player1, p2: player2, timeid });
     canPress = false;
   }
-  if (p1.health <= 0) {
-    p1.switchsprite("death");
+  if (player1.health <= 0) {
+    player1.switchsprite("death");
   }
-  if (p2.health <= 0) {
-    p2.switchsprite("death");
+  if (player2.health <= 0) {
+    player2.switchsprite("death");
   }
-  // double jump
-  if (p1.position.y === 330) {
-    player_onGround = true;
+}
+
+// Function to handle double jump
+function handleDoubleJump(player, groundLevel, onGroundFlag) {
+  if (player.position.y === groundLevel) {
+    onGroundFlag = true;
   }
 
-  if (!playerJump && p1.velocity.y == 0 && player_onGround) {
+  if (!playerJump && player.velocity.y === 0 && onGroundFlag) {
     playerJump = true;
-    player_onGround = false;
-  }
-
-  if (p2.position.y === 330) {
-    enemy_onGround = true;
-  }
-
-  if (!enemyJump && p2.velocity.y == 0 && enemy_onGround) {
-    enemyJump = true;
-    enemy_onGround = false;
+    onGroundFlag = false;
   }
 }

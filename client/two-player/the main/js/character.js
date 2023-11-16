@@ -20,9 +20,9 @@ class Character {
     this.need = need;
     this.attackbox = attackbox;
 
-    for (const Sprite in this.sprites) {
-      sprites[Sprite].image = new Image();
-      sprites[Sprite].image.src = sprites[Sprite].imageSrc;
+    for (const sprite in this.sprites) {
+      sprites[sprite].image = new Image();
+      sprites[sprite].image.src = sprites[sprite].imageSrc;
     }
   }
 }

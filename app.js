@@ -1,70 +1,65 @@
 const express = require("express");
 const app = express();
-
 const path = require("path");
-var http = require("http");
+const http = require("http");
 const { Server } = require("socket.io");
 
-// import http as http from 'node:http';
-
-// deepcode ignore HttpToHttps: <please specify a reason of ignoring this>
 const server = http.createServer(app);
-
 const io = new Server(server);
+
 app.use(express.static(path.resolve("client")));
 
-let arr = [];
-let playerArr = [];
+let waitingPlayers = [];
+let matchedPlayers = [];
+
+// Function to handle player matching
+function handlePlayerMatching(player) {
+  waitingPlayers.push(player);
+
+  if (waitingPlayers.length >= 2) {
+    const [player1, player2] = waitingPlayers.splice(0, 2);
+
+    const match = {
+      p1: { name: player1.name, char: player1.character, amI: false },
+      p2: { name: player2.name, char: player2.character, amI: true },
+    };
+
+    matchedPlayers.push(match);
+
+    io.emit("s", { allPlayers: matchedPlayers }, () => {
+      console.log(matchedPlayers);
+      matchedPlayers = [];
+    });
+  }
+}
 
 // Handle a new connection
 io.on("connection", (socket) => {
-  socket.on("find", (e) => {
-    // If player name provided
-    if (e.name != null) {
-      // Add player info to array
-      arr.push({ name: e.name, char: e.character });
-      // If at least 2 players found
-      if (arr.length >= 2) {
-        // Create player objects
-        let p1obj = {
-          p1name: arr[0].name,
-          p1char: arr[0].char,
-          amI: false,
-        };
-        let p2obj = {
-          p2name: arr[1].name,
-          p2char: arr[1].char,
-          amI: true,
-        };
-        // Create match object
-        let obj = {
-          p1: p1obj,
-          p2: p2obj,
-        };
-        // Add match to all matches list
-        playerArr.push(obj);
+  // Listen for the "find" event from a client
+  socket.on("find", (playerInfo) => {
+    try {
+      // If player name provided
+      if (playerInfo.name != null) {
+        // Handle player matching
+        handlePlayerMatching(playerInfo);
 
-        // Remove 2 players from array
-        arr.splice(0, 2);
+        // Listen for the "positionUpdate" event from a client
+        socket.on("positionUpdate", (positionInfo) => {
+          // Emit the updated player positions to all clients
+          io.emit("Update", { allPosition: positionInfo });
 
-        // Emit updated all matches list to all clients
-        io.emit("s", { allPlayers: playerArr }, () => {
-          console.log(playerArr);
-          playerArr = [];
-        });
-
-        // Listen for positionUpdate event from a client
-        socket.on("positionUpdate", (e) => {
-          // Emit updated player positions to all clients
-          io.emit("Update", { allPosition: e });
-          // Log updated player positions
-          console.log(e);
+          // Log the updated player positions
+          console.log(positionInfo);
         });
       }
+    } catch (error) {
+      console.error("Error handling player:", error.message);
     }
   });
 });
-// Starting the server
-server.listen(3000, () => {
-  console.log("server started");
+
+// Start the server on port 3000
+const PORT = 3000;
+server.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
