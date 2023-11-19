@@ -273,11 +273,11 @@ function animate() {
   switch (p1.lastkey) {
     case "a":
       // Handle left movement and scrolling
-      handlePlayerMovement(p1, keys.a, "run", 40, "d", 5, -5);
+      handlePlayerMovement(p1,p2, keys.a, "run", 40, "d", 5, -5);
       break;
     case "d":
       // Handle right movement and scrolling
-      handlePlayerMovement(p1, keys.d, "run", 900, "a", -5, 5);
+      handlePlayerMovement(p1,p2, keys.d, "run", 900, "a", -5, 5);
       break;
     default:
       // Default to idle sprite
@@ -287,18 +287,18 @@ function animate() {
   // Handle player jump
   handlePlayerJump(p1, player);
 
-  // Handle enemy movement
+  // Handle player movement for p2
   switch (p2.lastkey) {
     case "a":
-      // Handle left movement and scrolling for the enemy
-      handlePlayerMovement(p2, keys.a, "run", 40, "d", 5, -5);
+      // Handle left movement and scrolling
+      handlePlayerMovement(p2,p1, keys.a, "run", 40, "d", 5, -5,);
       break;
     case "d":
-      // Handle right movement and scrolling for the enemy
-      handlePlayerMovement(p2, keys.d, "run", 900, "a", -5, 5);
+      // Handle right movement and scrolling
+      handlePlayerMovement(p2,p1, keys.d, "run", 900, "a", -5, 5);
       break;
     default:
-      // Default to idle sprite for the enemy
+      // Default to idle sprite
       p2.switchsprite("idle");
   }
 
@@ -322,6 +322,7 @@ function animate() {
 // Function to handle player movement
 function handlePlayerMovement(
   player,
+  otherPlayer,
   key,
   runSprite,
   boundary,
@@ -345,7 +346,7 @@ function handlePlayerMovement(
     background.position.x += scrollAmount;
     background1.position.x += scrollAmount;
     background0.position.x += scrollAmount;
-    player.position.x += scrollAmount;
+    otherPlayer.position.x += scrollAmount;
     send();
   } else {
     player.switchsprite("idle");
