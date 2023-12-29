@@ -24,7 +24,7 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
 }
 
 // Function to determine the winner and display result
-function determineWinner({ p1, p2, timeid }) {
+function determineWinner({ p1, p2, timeid, name }) {
   // Stop timer
   clearTimeout(timeid);
 
@@ -39,18 +39,18 @@ function determineWinner({ p1, p2, timeid }) {
     if (p1.health === p2.health) {
       document.querySelector("#result").innerHTML = "TIE";
     } else if (p1.health > p2.health) {
-      document.querySelector("#result").innerHTML = PlayerName + " WIN";
+      document.querySelector("#result").innerHTML = name + " WIN";
     } else if (p1.health < p2.health) {
-      document.querySelector("#result").innerHTML = EnemyName + " WIN";
+      document.querySelector("#result").innerHTML = oppName + " WIN";
     }
   } else {
     // Arabic
     if (p1.health === p2.health) {
       document.querySelector("#result").innerHTML = "تعادل";
     } else if (p1.health > p2.health) {
-      document.querySelector("#result").innerHTML = PlayerName + " فاز";
+      document.querySelector("#result").innerHTML = name + " فاز";
     } else if (p1.health < p2.health) {
-      document.querySelector("#result").innerHTML = EnemyName + " فاز";
+      document.querySelector("#result").innerHTML = oppName + " فاز";
     }
   }
 
@@ -60,7 +60,6 @@ function determineWinner({ p1, p2, timeid }) {
   // Check for collision
   rectangularCollision;
 }
-
 // Function to close the form
 function closeForm() {
   document.getElementById("myForm").style.display = "none";
@@ -78,7 +77,7 @@ function decrease() {
     document.querySelector("#timer").innerHTML = time;
   }
   if (time === 0) {
-    determineWinner({ p1, p2, timeid });
+    determineWinner({ p1, p2, timeid,name});
     canPress = false;
   }
 }

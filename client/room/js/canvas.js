@@ -217,20 +217,19 @@ function send() {
     b1: background1.position.x,
     b0: background0.position.x,
     b: background.position.x,
+    playerHealth: p1.health,
+    enemyHealth: p2.health,
   });
 }
 
 // Event listener for position updates from the server
-socket.on("Update", (e) => {
-  // Update positions for players and backgrounds
-  p1.position.x = e.allPosition.p1X;
-  p2.position.x = e.allPosition.p2X;
-  p1.position.y = e.allPosition.p1Y;
-  p2.position.y = e.allPosition.p2Y;
-  background0.position.x = e.allPosition.b0;
-  background.position.x = e.allPosition.b;
-  background1.position.x = e.allPosition.b1;
-
+socket.on("Update", (e) => {  // Update positions for players and backgrounds
+  p1.position.x = e.allPosition.p1X;  p2.position.x = e.allPosition.p2X;
+  p1.position.y = e.allPosition.p1Y;  p2.position.y = e.allPosition.p2Y;
+  background0.position.x = e.allPosition.b0;  background.position.x = e.allPosition.b;
+  background1.position.x = e.allPosition.b1;  p1.health = e.allPosition.playerHealth;
+  p2.health = e.allPosition.enemyHealth;  gsap.to("#en-heal", { width: (100 * e.allPosition.enemyHealth) / p2.no + "%" });
+  gsap.to("#ol-heal", { width: (100 * e.allPosition.playerHealth) / p1.no + "%" });
   // Update backgrounds and shop (if needed)
   background0.update();
   background.update();
@@ -374,6 +373,7 @@ function handlePlayerEnemyCollision(player, enemy) {
     enemy.takehit();
     player.isattacking = false;
     gsap.to("#en-heal", { width: (100 * enemy.health) / enemy.no + "%" });
+    send();
   }
 }
 
