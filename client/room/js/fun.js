@@ -37,29 +37,30 @@ function determineWinner({ p1, p2, timeid, name }) {
   if (!isAR) {
     // English
     if (p1.health === p2.health) {
-      document.querySelector("#result").innerHTML = "TIE";
+      resultElement.innerHTML = "TIE";
     } else if (p1.health > p2.health) {
-      document.querySelector("#result").innerHTML = name + " WIN";
+      resultElement.innerHTML = name + " WIN";
     } else if (p1.health < p2.health) {
-      document.querySelector("#result").innerHTML = oppName + " WIN";
+      resultElement.innerHTML = oppName + " WIN";
     }
   } else {
     // Arabic
     if (p1.health === p2.health) {
-      document.querySelector("#result").innerHTML = "تعادل";
+      resultElement.innerHTML = "تعادل";
     } else if (p1.health > p2.health) {
-      document.querySelector("#result").innerHTML = name + " فاز";
+      resultElement.innerHTML = name + " فاز";
     } else if (p1.health < p2.health) {
-      document.querySelector("#result").innerHTML = oppName + " فاز";
+      resultElement.innerHTML = oppName + " فاز";
     }
   }
 
   // Display result
-  document.querySelector("#result").style.display = "flex";
+  resultElement.style.display = "flex";
 
   // Check for collision
-  rectangularCollision;
+  rectangularCollision(p1, p2);
 }
+
 // Function to close the form
 function closeForm() {
   document.getElementById("myForm").style.display = "none";
@@ -77,7 +78,7 @@ function decrease() {
     document.querySelector("#timer").innerHTML = time;
   }
   if (time === 0) {
-    determineWinner({ p1, p2, timeid,name});
+    determineWinner(p1, p2, timeid, name, oppName);
     canPress = false;
   }
 }
@@ -88,9 +89,9 @@ function playAgain() {
 }
 
 // Function to change character
-function change() {
-  window.location.href = "../choose.html";
-}
+// function change() {
+//   window.location.href = "../choose.html";
+// }
 
 // Change text based on language preference
 if (isAR) {

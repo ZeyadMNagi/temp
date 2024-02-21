@@ -1,3 +1,4 @@
+// Define a sprite class for game objects
 class sprite {
   constructor({
     position,
@@ -6,6 +7,7 @@ class sprite {
     framemax = 1,
     offset = { x: 0, y: 0 },
   }) {
+    // Initialize sprite properties
     this.position = position;
     this.width = 50;
     this.height = 150;
@@ -18,6 +20,8 @@ class sprite {
     this.framehold = 5;
     this.offset = offset;
   }
+
+  // Draw the sprite on the canvas
   draw() {
     C.drawImage(
       this.image,
@@ -31,10 +35,7 @@ class sprite {
       this.image.height * this.scale
     );
 
-    // C.strokeRect(this.position.x,this.position.y,this.width,this.height);
-    // C.stroke()
-
-    //health bar
+    // Draw health bar if it's an enemy sprite
     if (this.enemy) {
       C.fillStyle = "red";
       C.fillRect(this.position.x, this.position.y - 40, this.no, 10);
@@ -44,6 +45,7 @@ class sprite {
     }
   }
 
+  // Animate the sprite frames
   animateframe() {
     this.framelapsed++;
 
@@ -56,12 +58,14 @@ class sprite {
     }
   }
 
+  // Update the sprite
   update() {
     this.draw();
     this.animateframe();
   }
 }
 
+// Define a Fighter class that extends the Sprite class
 class Fighter extends sprite {
   constructor({
     position,
@@ -78,6 +82,7 @@ class Fighter extends sprite {
     no,
     damage,
   }) {
+    // Call the constructor of the base class (Sprite)
     super({
       position,
       imageSrc,
@@ -86,6 +91,7 @@ class Fighter extends sprite {
       offset,
     });
 
+    // Initialize fighter-specific properties
     this.velocity = velocity;
     this.width = 50;
     this.height = 150;
@@ -111,42 +117,44 @@ class Fighter extends sprite {
     this.no = no;
     this.damage = damage;
 
+    // Load images for all sprites in the fighter
     for (const Sprite in this.sprites) {
       sprites[Sprite].image = new Image();
       sprites[Sprite].image.src = sprites[Sprite].imageSrc;
     }
   }
 
+  // Update the fighter's state
   update() {
     this.draw();
     if (!this.dead) this.animateframe();
 
     this.attackbox.position.x = this.position.x + this.attackbox.offset.x;
     this.attackbox.position.y = this.position.y + this.attackbox.offset.y;
-    // C.fillStyle="black"
-    // C.fillRect(this.attackbox.position.x,this.attackbox.position.y, this.attackbox.width, this.attackbox.height)
 
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
 
-    //gravity
-
+    // Apply gravity
     if (this.position.y + this.height + this.velocity.y >= canvas.height - 97) {
       this.velocity.y = 0;
       this.position.y = 330;
     } else this.velocity.y += gravity;
   }
 
+  // Execute the second attack animation
   attack2() {
     this.switchsprite("attack2");
     this.isattacking = true;
   }
 
+  // Execute the first attack animation
   attack1() {
     this.switchsprite("attack1");
     this.isattacking = true;
   }
 
+  // Execute the take-hit animation and update health
   takehit() {
     this.switchsprite("takehit");
 
@@ -157,13 +165,16 @@ class Fighter extends sprite {
     } else this.switchsprite("takehit");
   }
 
+  // Switch the current sprite to a specified sprite
   switchsprite(sprite) {
+    // If the current sprite is the death sprite and the last frame is reached, mark the fighter as dead
     if (this.image === this.sprites.death.image) {
       if (this.framecurrent === this.sprites.death.framemax - 1)
         this.dead = true;
       return;
     }
 
+    // Return if the current sprite is still animating
     if (
       this.image === this.sprites.attack1.image &&
       this.framecurrent < this.sprites.attack1.framemax - 1
@@ -181,6 +192,7 @@ class Fighter extends sprite {
     )
       return;
 
+    // Switch to the specified sprite based on the given sprite name
     switch (sprite) {
       case "idle":
         if (this.image !== this.sprites.idle.image) {
