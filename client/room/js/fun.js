@@ -58,7 +58,7 @@ function determineWinner({ p1, p2, timeid, name }) {
   resultElement.style.display = "flex";
 
   // Check for collision
-  rectangularCollision(p1, p2);
+  rectangularCollision({p1, p2});
 }
 
 // Function to close the form
@@ -78,7 +78,7 @@ function decrease() {
     document.querySelector("#timer").innerHTML = time;
   }
   if (time === 0) {
-    determineWinner(p1, p2, timeid, name, oppName);
+    determineWinner({p1, p2, timeid, name, oppName});
     canPress = false;
   }
 }

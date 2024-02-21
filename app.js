@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
 });
 
 // Start the server on port 3000
-const PORT = 3000;
+const PORT = 3300;
 server.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
